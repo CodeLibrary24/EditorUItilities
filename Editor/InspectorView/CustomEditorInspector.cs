@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public abstract class CustomEditorInspector : Editor
 {
-    private Color _green = new Color(0.07f, 0.28f, 0.03f);
+    private readonly Color _green = new Color(0.07f, 0.28f, 0.03f);
 
     protected VisualElement RootVisualElement;
 

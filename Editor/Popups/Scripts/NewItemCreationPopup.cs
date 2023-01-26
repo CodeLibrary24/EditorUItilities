@@ -9,7 +9,7 @@ namespace CodeLibrary24.EditorUtilities
     {
         protected override string UxmlPath => EditorPaths.NewItemPopupPath;
 
-        private TextField _itemNameText;
+        private readonly TextField _itemNameText;
 
         public NewItemCreationPopup(Action<string> onConfirm)
         {
