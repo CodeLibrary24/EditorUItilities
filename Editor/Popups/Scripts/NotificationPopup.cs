@@ -1,20 +1,20 @@
 ﻿using System;
 using UnityEngine.UIElements;
 
-namespace CircusCharlie.DataTaggingTool
+namespace CodeLibrary24.EditorUtilities
 {
     public class NotificationPopup : DataTaggingToolPopup
     {
-        protected override string uxmlPath => EditorPaths.NOTIFICATION_POPUP_PATH;
+        protected override string UxmlPath => EditorPaths.NotificationPopupPath;
         private Action _onConfirm;
 
         public NotificationPopup()
         {
-            confirmationButton = popupContent.Q<Button>("OkayButton");
-            displayMessage = popupContent.Q<Label>("NotificationMessage");
-            heading = popupContent.Q<Label>("NotificationHeading");
+            ConfirmationButton = PopupContent.Q<Button>("OkayButton");
+            DisplayMessage = PopupContent.Q<Label>("NotificationMessage");
+            Heading = PopupContent.Q<Label>("NotificationHeading");
 
-            confirmationButton.clicked += () =>
+            ConfirmationButton.clicked += () =>
             {
                 _onConfirm?.Invoke();
                 ClosePopup();

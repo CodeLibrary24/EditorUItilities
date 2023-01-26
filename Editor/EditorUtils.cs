@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEditor.SceneManagement;
 
 
-namespace CircusCharlie.DataTaggingTool
+namespace CodeLibrary24.EditorUtilities
 {
     public static class EditorUtils
     {

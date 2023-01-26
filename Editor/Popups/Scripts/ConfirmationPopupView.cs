@@ -1,30 +1,30 @@
 using System;
 using UnityEngine.UIElements;
 
-namespace CircusCharlie.DataTaggingTool
+namespace CodeLibrary24.EditorUtilities
 {
     public class ConfirmationPopupView : DataTaggingToolPopup
     {
-        protected override string uxmlPath => EditorPaths.CONFIRMATION_POPUP_PATH;
+        protected override string UxmlPath => EditorPaths.ConfirmationPopupPath;
         private Action _onConfirm;
         private Action _onCancel;
 
         public ConfirmationPopupView(string confirmButtonText, string cancelButtonText)
         {
-            confirmationButton = popupContent.Q<Button>("ConfirmButton");
-            cancelButton = popupContent.Q<Button>("CancelButton");
-            displayMessage = popupContent.Q<Label>("ConfirmationText");
-            heading = popupContent.Q<Label>("Heading");
+            ConfirmationButton = PopupContent.Q<Button>("ConfirmButton");
+            CancelButton = PopupContent.Q<Button>("CancelButton");
+            DisplayMessage = PopupContent.Q<Label>("ConfirmationText");
+            Heading = PopupContent.Q<Label>("Heading");
 
-            confirmationButton.text = confirmButtonText;
-            cancelButton.text = cancelButtonText;
-            confirmationButton.clicked += () =>
+            ConfirmationButton.text = confirmButtonText;
+            CancelButton.text = cancelButtonText;
+            ConfirmationButton.clicked += () =>
             {
                 _onConfirm?.Invoke();
                 ClosePopup();
             };
 
-            cancelButton.clicked += () =>
+            CancelButton.clicked += () =>
             {
                 _onCancel?.Invoke();
                 ClosePopup();

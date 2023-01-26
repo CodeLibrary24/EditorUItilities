@@ -4,25 +4,25 @@ using UnityEngine.UIElements;
 
 public abstract class CustomEditorInspector : Editor
 {
-    private Color green = new Color(0.07f, 0.28f, 0.03f);
+    private Color _green = new Color(0.07f, 0.28f, 0.03f);
 
-    protected VisualElement rootVisualElement;
+    protected VisualElement RootVisualElement;
 
-    protected abstract string UXMLPath { get; }
+    protected abstract string UxmlPath { get; }
 
 
     private void OnEnable()
     {
-        rootVisualElement = new VisualElement();
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UXMLPath);
-        visualTree.CloneTree(rootVisualElement);
+        RootVisualElement = new VisualElement();
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
+        visualTree.CloneTree(RootVisualElement);
         Initialize();
     }
 
     public override VisualElement CreateInspectorGUI()
     {
         DrawEditor();
-        return rootVisualElement;
+        return RootVisualElement;
     }
 
     protected virtual void Initialize()
@@ -35,8 +35,8 @@ public abstract class CustomEditorInspector : Editor
     {
         Button saveButton = new Button(() => { Save(); });
         saveButton.text = "Save";
-        saveButton.style.backgroundColor = green;
-        rootVisualElement.Add(saveButton);
+        saveButton.style.backgroundColor = _green;
+        RootVisualElement.Add(saveButton);
     }
 
     protected virtual void Save()

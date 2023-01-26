@@ -3,17 +3,17 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using PopupWindow = UnityEditor.PopupWindow;
 
-namespace CircusCharlie.DataTaggingTool
+namespace CodeLibrary24.EditorUtilities
 {
     public abstract class DataTaggingToolPopup : PopupWindowContent
     {
-        protected VisualElement popupContent;
-        protected Button confirmationButton;
-        protected Button cancelButton;
-        protected Label displayMessage;
-        protected Label heading;
+        protected VisualElement PopupContent;
+        protected Button ConfirmationButton;
+        protected Button CancelButton;
+        protected Label DisplayMessage;
+        protected Label Heading;
 
-        protected abstract string uxmlPath { get; }
+        protected abstract string UxmlPath { get; }
 
         protected DataTaggingToolPopup()
         {
@@ -22,29 +22,28 @@ namespace CircusCharlie.DataTaggingTool
 
         private void LoadUxml()
         {
-            VisualTreeAsset visualTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(uxmlPath);
+            VisualTreeAsset visualTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
             if (visualTreeAsset == null)
             {
-                Debug.LogError("Uxml file not found at path: " + uxmlPath);
+                Debug.LogError("Uxml file not found at path: " + UxmlPath);
             }
-            popupContent = visualTreeAsset.Instantiate();
+            PopupContent = visualTreeAsset.Instantiate();
         }
 
         public override void OnOpen()
         {
-            editorWindow.rootVisualElement.Add(popupContent);
-            editorWindow.rootVisualElement.AddToClassList("popupLayout");
+            editorWindow.rootVisualElement.Add(PopupContent);
             EditorUtils.FindRootVisualElement(editorWindow.rootVisualElement).AddToClassList("popupLayout");
         }
 
         public void SetHeading(string popupHeading)
         {
-            heading.text = popupHeading;
+            Heading.text = popupHeading;
         }
 
         public void SetMessage(string message)
         {
-            displayMessage.text = message;
+            DisplayMessage.text = message;
         }
 
         public void ClosePopup()

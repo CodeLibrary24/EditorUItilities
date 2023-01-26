@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class PackageSearchUtility
 {
-    private const string PACKAGE_MANIFEST_FILE_PATH = "Packages/manifest.json";
+    private const string PackageManifestFilePath = "Packages/manifest.json";
     public static bool DoesPackageExist(string packageName)
     {
-        if (!File.Exists(PACKAGE_MANIFEST_FILE_PATH))
+        if (!File.Exists(PackageManifestFilePath))
         {
             Debug.LogError("Package Manifest file is missing!");
             return false;
         }
         
-        string jsonText = File.ReadAllText(PACKAGE_MANIFEST_FILE_PATH);
+        string jsonText = File.ReadAllText(PackageManifestFilePath);
         return jsonText.Contains(packageName);
     }
 }

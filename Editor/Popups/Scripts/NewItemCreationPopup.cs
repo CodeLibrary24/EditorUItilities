@@ -3,37 +3,37 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
-namespace CircusCharlie.DataTaggingTool
+namespace CodeLibrary24.EditorUtilities
 {
     public class NewItemCreationPopup : DataTaggingToolPopup
     {
-        protected override string uxmlPath => EditorPaths.NEW_ITEM_POPUP_PATH;
+        protected override string UxmlPath => EditorPaths.NewItemPopupPath;
 
-        private TextField itemNameText;
+        private TextField _itemNameText;
 
         public NewItemCreationPopup(Action<string> onConfirm)
         {
-            cancelButton = popupContent.Q<Button>("CancelButton");
-            confirmationButton = popupContent.Q<Button>("CreateButton");
-            itemNameText = popupContent.Q<TextField>("ItemName");
+            CancelButton = PopupContent.Q<Button>("CancelButton");
+            ConfirmationButton = PopupContent.Q<Button>("CreateButton");
+            _itemNameText = PopupContent.Q<TextField>("ItemName");
 
-            confirmationButton.clicked += () => { Confirm(onConfirm); };
+            ConfirmationButton.clicked += () => { Confirm(onConfirm); };
 
-            itemNameText.focusable = true;
-            itemNameText.RegisterCallback<KeyDownEvent>(e =>
+            _itemNameText.focusable = true;
+            _itemNameText.RegisterCallback<KeyDownEvent>(e =>
             {
                 if (e.keyCode == KeyCode.Return)
                     Confirm(onConfirm);
             });
 
-            cancelButton.clicked += ClosePopup;
+            CancelButton.clicked += ClosePopup;
         }
 
         private void Confirm(Action<string> onConfirm)
         {
-            if (string.IsNullOrEmpty(itemNameText.value) == false)
+            if (string.IsNullOrEmpty(_itemNameText.value) == false)
             {
-                onConfirm?.Invoke(itemNameText.value);
+                onConfirm?.Invoke(_itemNameText.value);
                 ClosePopup();
             }
         }
@@ -41,8 +41,8 @@ namespace CircusCharlie.DataTaggingTool
         public override void OnOpen()
         {
             base.OnOpen();
-            popupContent.Focus();
-            itemNameText.ElementAt(1).Focus();
+            PopupContent.Focus();
+            _itemNameText.ElementAt(1).Focus();
         }
     }
 }

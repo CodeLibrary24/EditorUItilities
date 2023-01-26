@@ -9,8 +9,8 @@ namespace  UIToolKitUtilities
 {
     public abstract class GenericListView<T> : VisualElement where T:VisualElement
     {
-        private const string _ASSET_PATH = "Assets/UIToolkitUtilities/Editor/GenericListView";
-        private const string _UXML_PATH = _ASSET_PATH + "/GenericListView.uxml";
+        private const string AssetPath = "Assets/UIToolkitUtilities/Editor/GenericListView";
+        private const string UxmlPath = AssetPath + "/GenericListView.uxml";
 
         private ListView _objectsList;
         private Button _addButton;
@@ -36,7 +36,7 @@ namespace  UIToolKitUtilities
 
         private void Initialize()
         {
-            VisualTreeAsset uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(_UXML_PATH);
+            VisualTreeAsset uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
             hierarchy.Add(uxml.Instantiate());
             
             OnInitialized();

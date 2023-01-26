@@ -12,8 +12,8 @@ public class EditableLabel : VisualElement
     {
     }
 
-    private const string _ASSET_PATH = "Assets/UIToolkitUtilities/Editor/EditableLabel";
-    private const string _UXML_PATH = _ASSET_PATH + "/EditableLabel.uxml";
+    private const string AssetPath = "Assets/UIToolkitUtilities/Editor/EditableLabel";
+    private const string UxmlPath = AssetPath + "/EditableLabel.uxml";
 
     private Label _label;
     private TextField _textField;
@@ -50,7 +50,7 @@ public class EditableLabel : VisualElement
 
     private void Initialize()
     {
-        VisualTreeAsset uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(_UXML_PATH);
+        VisualTreeAsset uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
         hierarchy.Add(uxml.Instantiate());
     }
 
