@@ -58,10 +58,6 @@ namespace CircusCharlie.DataTaggingTool
             DataTaggingToolPopup.ShowPopup(windowPos, createItemPopup, showAtScreenCenter);
         }
 
-        public static void Quote(ref string text)
-        {
-            text = EditorConstants.SINGLE_QUOTE + text + EditorConstants.SINGLE_QUOTE;
-        }
 
         private static readonly List<int> PreviouslyDisabledUIElements = new List<int>();
 
@@ -144,13 +140,13 @@ namespace CircusCharlie.DataTaggingTool
         public static void SetElementOnFocus(VisualElement element)
         {
             SetOnAbsoluteFocus(element);
-            element.AddToClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
+            // element.AddToClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
         }
 
         public static void RemoveFocusFromElement(VisualElement element)
         {
             EnableAll(FindRootVisualElement(element));
-            element.RemoveFromClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
+            // element.RemoveFromClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
         }
 
         public static void MarkDirty()
