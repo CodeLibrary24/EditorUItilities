@@ -1,0 +1,41 @@
+.confirmation-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-width: 50px;
+    flex-grow: 1;
+}
+
+.confirmation-dialog-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.confirmation-message {
+    margin-left: 0;
+    margin-bottom: 50px;
+    white-space: normal;
+    flex-grow: 1;
+    margin-top: 10px;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.buttons-container {
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

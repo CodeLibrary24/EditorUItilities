@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:ListView focusable="true" name="objects-list" reorder-mode="Animated" show-add-remove-footer="false" virtualization-method="FixedHeight" show-foldout-header="false" class="objects-list" />
+    <ui:GroupBox name="objects-footer" class="objects-list-footer">
+        <ui:Button text="+" display-tooltip-when-elided="true" name="add-button" />
+        <ui:Button text="-" display-tooltip-when-elided="true" name="remove-button" />
+    </ui:GroupBox>
+</ui:UXML>

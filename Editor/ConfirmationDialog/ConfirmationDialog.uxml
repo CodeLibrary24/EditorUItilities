@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIToolkitInspector/Editor/USS/ConfirmationDialog.uss?fileID=7433441132597879392&amp;guid=b082e899eb7bc774ea853af86c43bf7f&amp;type=3#ConfirmationDialog" />
+    <ui:VisualElement name="confirmation-dialog-container" class="confirmation-dialog-container">
+        <ui:Label text="Are you sure?" display-tooltip-when-elided="true" name="confirmation-message" class="confirmation-message" />
+        <ui:VisualElement name="buttons-container" class="buttons-container">
+            <ui:Button text="Yes" display-tooltip-when-elided="true" name="yes-button" class="confirmation-button" />
+            <ui:Button text="No" display-tooltip-when-elided="true" name="no-button" class="confirmation-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
