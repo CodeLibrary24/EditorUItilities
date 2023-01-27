@@ -1,0 +1,14 @@
+{
+    "name": "com.codelibrary24.editorutilities",
+    "rootNamespace": "codelibrary24.editorutilities",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

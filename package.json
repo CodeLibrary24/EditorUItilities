@@ -1,0 +1,19 @@
+﻿{
+  "name": "com.codelibrary24.editorutilities",
+  "version": "1.0.0",
+  "displayName": "Editor Utilities",
+  "description": "A helper package for making editor tools",
+  "documentationUrl": "https://ambargames.com/",
+  "changelogUrl": "https://ambargames.com/",
+  "licensesUrl": "https://ambargames.com/",
+  "keywords": [
+    "Utils",
+    "Editor Utils",
+    "Editor Utilities"
+  ],
+  "author": {
+    "name": "CircusCharlie",
+    "email": "circuscharlie2428@gmail.com",
+    "url": "https://www.ambargames.com"
+  }
+}
