@@ -2,15 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace  UIToolKitUtilities
+namespace  CodeLibrary24.EditorUtilities
 {
     public abstract class GenericListView<T> : VisualElement where T:VisualElement
     {
-        private const string AssetPath = "Assets/UIToolkitUtilities/Editor/GenericListView";
-        private const string UxmlPath = AssetPath + "/GenericListView.uxml";
+        private const string UxmlPath = EditorPaths.BasePath + "/EditableLabel/EditableLabel.uxml";
 
         private ListView _objectsList;
         private Button _addButton;

@@ -1,18 +1,22 @@
 using System.IO;
 using UnityEngine;
 
-public class PackageSearchUtility
+namespace CodeLibrary24.EditorUtilities
 {
-    private const string PackageManifestFilePath = "Packages/manifest.json";
-    public static bool DoesPackageExist(string packageName)
+    public static class PackageSearchUtility
     {
-        if (!File.Exists(PackageManifestFilePath))
+        private const string PackageManifestFilePath = "Packages/manifest.json";
+
+        public static bool DoesPackageExist(string packageName)
         {
-            Debug.LogError("Package Manifest file is missing!");
-            return false;
+            if (!File.Exists(PackageManifestFilePath))
+            {
+                Debug.LogError("Package Manifest file is missing!");
+                return false;
+            }
+
+            string jsonText = File.ReadAllText(PackageManifestFilePath);
+            return jsonText.Contains(packageName);
         }
-        
-        string jsonText = File.ReadAllText(PackageManifestFilePath);
-        return jsonText.Contains(packageName);
     }
 }

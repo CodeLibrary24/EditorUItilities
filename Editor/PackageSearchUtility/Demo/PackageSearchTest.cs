@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PackageSearchTest : MonoBehaviour
+namespace CodeLibrary24.EditorUtilities
 {
-    [SerializeField] private string packageName;
-    [ContextMenu("Does Package Exist ?")]
-    public void SearchPackage()
+    public class PackageSearchTest : MonoBehaviour
     {
-        bool result = PackageSearchUtility.DoesPackageExist(packageName);
-        Debug.Log("Package exist: "+result);
+        [SerializeField] private string packageName;
+
+        [ContextMenu("SearchPackage")]
+        public void SearchPackage()
+        {
+            bool result = PackageSearchUtility.DoesPackageExist(packageName);
+            Debug.Log("Package exist: " + result);
+        }
     }
 }
