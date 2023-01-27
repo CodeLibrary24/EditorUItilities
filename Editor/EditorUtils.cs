@@ -1,13 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections;
-// using Unity.EditorCoroutines.Editor; // TODO: Is this needed
 using UnityEditor.SceneManagement;
-
 
 namespace CodeLibrary24.EditorUtilities
 {
@@ -18,9 +14,6 @@ namespace CodeLibrary24.EditorUtilities
             return AssetDatabase.FindAssets($"t: {typeof(T).Name}").ToList().Select(AssetDatabase.GUIDToAssetPath)
                 .Select(AssetDatabase.LoadAssetAtPath<T>).ToList();
         }
-
-      
-
 
         private static readonly List<int> PreviouslyDisabledUIElements = new List<int>();
 
@@ -78,39 +71,6 @@ namespace CodeLibrary24.EditorUtilities
             return parent;
         }
 
-        public static void ScrollToLast(ScrollView scrollView, float delayTime = 0.1f)
-        {
-            // TODO: Is this needed?
-            // EditorCoroutineUtility.StartCoroutine(DelayedScrollWithOffset(scrollView, delayTime, 0, int.MaxValue), scrollView);
-        }
-
-        public static void ScrollToTop(ScrollView scrollView, float delayTime = 0.1f)
-        {
-            // TODO: Is this needed?
-            // EditorCoroutineUtility.StartCoroutine(DelayedScrollWithOffset(scrollView, delayTime, 0, 0), scrollView);
-        }
-
-        // TODO: Is this needed?
-        // private static IEnumerator DelayedScrollWithOffset(ScrollView scrollView, float delayTime, int horizontalOffset, int verticalOffset)
-        // {
-        //     yield return new EditorWaitForSeconds(delayTime);
-        //     if (scrollView != null)
-        //     {
-        //         scrollView.scrollOffset = new Vector2(horizontalOffset, verticalOffset);
-        //     }
-        // }
-
-        public static void SetElementOnFocus(VisualElement element)
-        {
-            SetOnAbsoluteFocus(element);
-            // element.AddToClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
-        }
-
-        public static void RemoveFocusFromElement(VisualElement element)
-        {
-            EnableAll(FindRootVisualElement(element));
-            // element.RemoveFromClassList(EditorConstants.ELEMENT_HIGHLIGHTED_STYLE_CLASS);
-        }
 
         public static void MarkDirty()
         {
@@ -150,12 +110,7 @@ namespace CodeLibrary24.EditorUtilities
                 return false;
             }
 
-            if (prefabStage.assetPath == AssetDatabase.GetAssetPath(gameObject))
-            {
-                return true;
-            }
-
-            return false;
+            return prefabStage.assetPath == AssetDatabase.GetAssetPath(gameObject);
         }
 
         public static void OpenPrefabView(GameObject gameObject)
@@ -170,7 +125,6 @@ namespace CodeLibrary24.EditorUtilities
 
         public static void ShowInIsolation(GameObject gameObject)
         {
-            // Utils.EditorUtils.FocusOnObjectInSceneView(gameObject); //TODO: Focus on object in scene view
             SceneVisibilityManager.instance.Isolate(gameObject, true);
         }
 
@@ -183,18 +137,6 @@ namespace CodeLibrary24.EditorUtilities
         {
             SceneVisibilityManager.instance.ExitIsolation();
         }
-
-        public static void FocusObjectWithDelay(GameObject gameObject, float delayTime = 0.08f)
-        {
-            // EditorCoroutineUtility.StartCoroutine(DelayedFocus(gameObject, delayTime), gameObject); // TODO: delayed focus here
-        }
-
-        // TODO: Delayed focus
-        // static IEnumerator DelayedFocus(GameObject gameObject, float delayTime)
-        // {
-        //     yield return new EditorWaitForSeconds(delayTime);
-        //     Utils.EditorUtils.FocusOnObjectInSceneView(gameObject);
-        // }
 
         public static Bounds GetBounds(this GameObject gameObject)
         {
@@ -213,8 +155,8 @@ namespace CodeLibrary24.EditorUtilities
                     hasBounds = true;
                 }
             }
+
             return bounds;
         }
-
     }
 }
