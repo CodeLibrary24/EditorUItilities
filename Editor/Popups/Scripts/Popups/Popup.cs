@@ -2,16 +2,16 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using PopupWindow = UnityEditor.PopupWindow;
 
 namespace CodeLibrary24.EditorUtilities.Popups
 {
-    public class Popup : PopupWindowContent
+    public abstract class Popup : PopupWindowContent
     {
         protected VisualElement HeaderContainer;
         protected Label HeadingLabel;
         protected VisualElement MiddleContainer;
         protected VisualElement FooterContainer;
-        protected Button PopupButton;
 
         private const string UxmlPath = EditorPaths.BasePath + "/Popups/UI/Popup.uxml";
 
@@ -23,10 +23,10 @@ namespace CodeLibrary24.EditorUtilities.Popups
 
         public override void OnGUI(Rect rect)
         {
-            DrawGUI(rect);
+            OnPopupGUI(rect);
         }
 
-        protected virtual void DrawGUI(Rect rect)
+        protected virtual void OnPopupGUI(Rect rect)
         {
         }
 
@@ -45,18 +45,13 @@ namespace CodeLibrary24.EditorUtilities.Popups
             FooterContainer = rootVisualElement.Q<VisualElement>("FooterContainer");
 
             HeadingLabel = rootVisualElement.Q<Label>("Heading");
-            PopupButton = rootVisualElement.Q<Button>("Button");
 
             CachePopupReferences(rootVisualElement);
         }
 
-        protected virtual void CachePopupReferences(VisualElement rootVisualElement)
-        {
-        }
+        protected abstract void CachePopupReferences(VisualElement rootVisualElement);
 
-        protected virtual void OnPopupOpen()
-        {
-        }
+        protected abstract void OnPopupOpen();
 
         public override void OnClose()
         {
@@ -74,29 +69,35 @@ namespace CodeLibrary24.EditorUtilities.Popups
             {
                 text = message, style =
                 {
-                    flexGrow = 1
+                    flexGrow = 1,
+                    unityTextAlign = TextAnchor.MiddleCenter
+                    
                 }
             };
 
             MiddleContainer.Add(label);
         }
 
-     
-        public void AddButton(string text, Color color, Action OnClicked)
+
+        public void AddButton(string text, Color color, Action onClicked)
         {
             Button button = new Button
             {
                 text = text, style =
                 {
-                    backgroundColor = color
+                    backgroundColor = color,
+                    flexGrow = 1
+                    
                 }
             };
-            button.clicked += OnClicked;
+            button.clicked += () =>
+            {
+                onClicked?.Invoke();
+                editorWindow.Close();
+            };
             FooterContainer.Add(button);
         }
 
-        protected virtual void OnPopupClose()
-        {
-        }
+        protected abstract void OnPopupClose();
     }
 }

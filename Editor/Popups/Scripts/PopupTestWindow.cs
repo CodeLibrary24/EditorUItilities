@@ -1,3 +1,4 @@
+using System;
 using CodeLibrary24.EditorUtilities.Popups;
 using UnityEditor;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class PopupTestWindow : EditorWindow
     private static PopupTestWindow _window;
 
 
-    [MenuItem("CodeLibrary24/PopupTestWindow")]
+    [MenuItem("CodeLibrary24/EditorUtilities/Tests/PopupTest")]
     public static void ShowExample()
     {
         _window = GetWindow<PopupTestWindow>();
@@ -21,20 +22,35 @@ public class PopupTestWindow : EditorWindow
     public void CreateGUI()
     {
         DrawConfirmationPopupTest();
+        DrawNotificationPopupTest();
     }
 
     private void DrawConfirmationPopupTest()
     {
-        Button button = new Button();
-        button.text = "Show Confirmation Popup";
-        rootVisualElement.Add(button);
-        button.clicked += () =>
+        AddButton("Show Confirmation Popup", () =>
         {
             PopupManager.ShowGenericConfirmationPopup(rootVisualElement.localBound,
                 "This is a dummy confirmation message.",
-                () => { Debug.LogError("Yes"); },
-                () => { Debug.LogError("No"); });
-        };
-        
+                () => { Debug.Log("Yes"); },
+                () => { Debug.Log("No"); });
+        });
+    }
+
+    private void DrawNotificationPopupTest()
+    {
+        AddButton("Show Notification Popup", () =>
+        {
+            PopupManager.ShowGenericNotificationPopup(rootVisualElement.localBound, "Alert!",
+                "This is a dummy notification message.",
+                () => { Debug.Log("Okay"); });
+        });
+    }
+
+    private void AddButton(string buttonText, Action onClicked)
+    {
+        Button button = new Button();
+        button.text = buttonText;
+        rootVisualElement.Add(button);
+        button.clicked += onClicked;
     }
 }

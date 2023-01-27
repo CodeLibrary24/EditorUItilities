@@ -3,9 +3,7 @@
         <ui:VisualElement name="HeaderContainer" style="flex-grow: 1; height: 48px; max-height: none;">
             <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Heading" style="font-size: 14px; -unity-text-align: middle-center; margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(51, 51, 51); flex-shrink: 1; flex-grow: 1; justify-content: center; -unity-font-style: bold;" />
         </ui:VisualElement>
-        <ui:VisualElement name="MiddleContainer" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgb(67, 67, 67); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 5px; border-top-right-radius: 0; border-bottom-right-radius: 5px; flex-grow: 1; max-height: none; height: 240px;">
-            <ui:Label tabindex="-1" text="Delete Confirmation?" display-tooltip-when-elided="true" name="Message" style="-unity-text-align: middle-center; font-size: 15px; white-space: normal; justify-content: center; flex-grow: 1;" />
-        </ui:VisualElement>
-        <ui:VisualElement name="FooterContainer" style="flex-grow: 1; height: 48px; flex-direction: row; max-height: none; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;" />
+        <ui:VisualElement name="MiddleContainer" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgb(67, 67, 67); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 5px; border-top-right-radius: 0; border-bottom-right-radius: 5px; flex-grow: 1; max-height: none; height: 240px;" />
+        <ui:VisualElement name="FooterContainer" style="flex-grow: 1; height: 48px; flex-direction: row; max-height: none; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;" />
     </ui:VisualElement>
 </ui:UXML>
