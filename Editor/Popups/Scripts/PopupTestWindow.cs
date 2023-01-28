@@ -48,8 +48,10 @@ public class PopupTestWindow : EditorWindow
 
     private void AddButton(string buttonText, Action onClicked)
     {
-        Button button = new Button();
-        button.text = buttonText;
+        Button button = new Button
+        {
+            text = buttonText
+        };
         rootVisualElement.Add(button);
         button.clicked += onClicked;
     }

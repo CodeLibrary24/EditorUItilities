@@ -87,7 +87,6 @@ namespace CodeLibrary24.EditorUtilities.Popups
                 {
                     backgroundColor = color,
                     flexGrow = 1
-                    
                 }
             };
             button.clicked += () =>

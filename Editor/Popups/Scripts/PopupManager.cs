@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeLibrary24.EditorUtilities.Popups
+namespace CodeLibrary24.EditorUtilities.Popups 
 {
     public static class PopupManager
     {
