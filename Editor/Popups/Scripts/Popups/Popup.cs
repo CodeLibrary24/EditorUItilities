@@ -93,9 +93,17 @@ namespace CodeLibrary24.EditorUtilities.Popups
             button.clicked += () =>
             {
                 onClicked?.Invoke();
-                editorWindow.Close();
+                ClosePopup();
             };
             FooterContainer.Add(button);
+        }
+
+        public void ClosePopup()
+        {
+            if (editorWindow != null)
+            {
+                editorWindow.Close();
+            }
         }
 
         protected abstract void OnPopupClose();
