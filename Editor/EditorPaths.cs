@@ -2,6 +2,8 @@
 {
     public static class EditorPaths
     {
-        public const string BasePath = "Assets/EditorUtilities/Editor";
+        // public cons string Root = "Assets";
+        public cons string Root = "com.codelibrary24.editorutilities";
+        public const string BasePath = Root+"/EditorUtilities/Editor";
     }
 }
