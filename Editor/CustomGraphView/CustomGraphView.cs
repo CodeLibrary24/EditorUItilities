@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
@@ -38,12 +39,38 @@ namespace CodeLibrary24.EditorUtilities
         {
             _nodeHub = nodeHub;
 
-            DeleteElements(graphElements);
+            ResetView();
 
             foreach (Node node in nodeHub.nodes)
             {
                 CreateNodeView(node);
             }
+        }
+
+        private void ResetView()
+        {
+            graphViewChanged -= OnGraphViewChanged;
+
+            DeleteElements(graphElements);
+
+            graphViewChanged += OnGraphViewChanged;
+        }
+
+        private GraphViewChange OnGraphViewChanged(GraphViewChange graphviewchange)
+        {
+            List<GraphElement> elementsToRemove = graphviewchange.elementsToRemove;
+
+            if (elementsToRemove == null) return graphviewchange;
+
+            foreach (GraphElement element in elementsToRemove)
+            {
+                if (element is NodeView nodeView)
+                {
+                    _nodeHub.DeleteNode(nodeView.node);
+                }
+            }
+
+            return graphviewchange;
         }
 
         private void CreateNodeView(Node node)
