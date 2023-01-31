@@ -30,8 +30,8 @@ namespace CodeLibrary24.EditorUtilities
         {
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new ContentZoomer());
-            this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new SelectionDragger());
+            this.AddManipulator(new RectangleSelector());
         }
 
         public void PopulateView(NodeHub nodeHub)
