@@ -23,6 +23,7 @@ public class GraphViewTestWindow : EditorWindow
         m_VisualTreeAsset.CloneTree(rootVisualElement);
         _graphView = rootVisualElement.Q<CustomGraphView>();
         _inspectorView = rootVisualElement.Q<CustomInspectorView>();
+        OnSelectionChange();
     }
 
     private void OnSelectionChange()
