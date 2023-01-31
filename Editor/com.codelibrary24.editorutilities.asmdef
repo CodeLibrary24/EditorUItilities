@@ -1,6 +1,6 @@
 {
     "name": "com.codelibrary24.editorutilities",
-    "rootNamespace": "codelibrary24.editorutilities",
+    "rootNamespace": "CodeLibrary24.EditorUtilities",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
