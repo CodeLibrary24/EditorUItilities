@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CodeLibrary24.EditorUtilities.Popups;
 using Unity.EditorCoroutines.Editor;
+using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,6 +17,8 @@ namespace CodeLibrary24.EditorUtilities
         private readonly VisualElement _rootVisualElement;
         private readonly Action<NodeHub> _onNodeHubSelected;
 
+        private NodeHub _selectedNodeHub;
+
         public NodeHubBarController(VisualElement rootVisualElement, Action<NodeHub> onNodeHubSelected)
         {
             _rootVisualElement = rootVisualElement;
@@ -25,8 +28,73 @@ namespace CodeLibrary24.EditorUtilities
 
         private void InitializeNodeHubToolbar()
         {
-            _nodeHubDropdown = _rootVisualElement.Q<ToolbarMenu>("NodeHubToolbarMenu");
+            InitializeDropdown();
+            InitializeButtons();
+        }
 
+        private void InitializeButtons()
+        {
+            Button createButton = _rootVisualElement.Q<Button>("CreateNodeHubButton");
+            createButton.clicked += CreateNodeHub;
+
+            Button deleteButton = _rootVisualElement.Q<Button>("DeleteNodeHubButton");
+            deleteButton.clicked += DeleteSelectedNodeHub;
+        }
+
+        private void CreateNodeHub()
+        {
+            NodeHub nodeHub = ScriptableObject.CreateInstance<NodeHub>();
+            string assetPath =
+                EditorUtility.SaveFilePanelInProject("Please select path", "New Node Hub", "asset", "Enter name");
+            try
+            {
+                AssetDatabase.CreateAsset(nodeHub, assetPath);
+            }
+            catch (Exception e)
+            {
+                PopupManager.ShowGenericNotificationPopup(_rootVisualElement.worldBound, "Asset Not Created!", "Asset creation cancelled by user", null);
+                throw;
+            }
+
+// TODO: Save button event
+
+            EditorUtils.SaveScriptableObject(nodeHub);
+
+            RefreshDropdown();
+            _selectedNodeHub = nodeHub;
+            SetDropdownText(nodeHub.name);
+            _onNodeHubSelected(_selectedNodeHub);
+        }
+
+        private void DeleteSelectedNodeHub()
+        {
+            if (_selectedNodeHub == null)
+            {
+                PopupManager.ShowGenericNotificationPopup(_rootVisualElement.worldBound, "Can't Delete!", "No Node Hub is selected.", null);
+                return;
+            }
+
+            PopupManager.ShowGenericConfirmationPopup(_rootVisualElement.worldBound, "Do you want to delete the node hub: " + _selectedNodeHub.name, () =>
+            {
+                List<NodeHub> nodeHubs = GetNodeHubs();
+                nodeHubs.Remove(_selectedNodeHub);
+                AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNodeHub));
+                _selectedNodeHub = null;
+                RefreshDropdown();
+                // TODO: Save button event
+                // TODO: Clear graph event
+            }, null);
+        }
+
+        private void InitializeDropdown()
+        {
+            _nodeHubDropdown = _rootVisualElement.Q<ToolbarMenu>("NodeHubToolbarMenu");
+            RefreshDropdown();
+        }
+
+        private void RefreshDropdown()
+        {
+            _nodeHubDropdown.menu.MenuItems().Clear();
             List<NodeHub> nodeHubs = GetNodeHubs();
 
             if (nodeHubs == null)
@@ -45,15 +113,18 @@ namespace CodeLibrary24.EditorUtilities
 
             for (var i = 0; i < nodeHubs.Count; i++)
             {
-                var hub = nodeHubs[i];
-                _nodeHubDropdown.menu.InsertAction(i, nodeHubs[i].name, OnNodeHubDropdownValueChanged);
+                AddOptionToDropdown(i, nodeHubs[i]);
             }
+        }
+
+        private void AddOptionToDropdown(int i, NodeHub nodeHub)
+        {
+            _nodeHubDropdown.menu.InsertAction(i, nodeHub.name, OnNodeHubDropdownValueChanged);
         }
 
         private void OnNodeHubDropdownValueChanged(DropdownMenuAction obj)
         {
             OnNodeHubSelected(obj.name);
-            _nodeHubDropdown.text = obj.name;
         }
 
         private List<NodeHub> GetNodeHubs()
@@ -65,15 +136,21 @@ namespace CodeLibrary24.EditorUtilities
         {
             List<NodeHub> nodeHubs = GetNodeHubs();
 
-            NodeHub selectedNodeHub = nodeHubs.Find(x => x.name == nodeHubName);
-            if (selectedNodeHub)
+            _selectedNodeHub = nodeHubs.Find(x => x.name == nodeHubName);
+            if (_selectedNodeHub)
             {
-                _onNodeHubSelected(selectedNodeHub);
+                SetDropdownText(nodeHubName);
+                _onNodeHubSelected(_selectedNodeHub);
             }
             else
             {
                 Debug.LogError("Node hub not found");
             }
+        }
+
+        private void SetDropdownText(string text)
+        {
+            _nodeHubDropdown.text = text;
         }
 
         private IEnumerator ShowNodeHubNotFoundPopup()

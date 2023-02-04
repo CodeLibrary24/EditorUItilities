@@ -15,7 +15,7 @@ namespace CodeLibrary24.EditorUtilities
                 .Select(AssetDatabase.LoadAssetAtPath<T>).ToList();
         }
 
-        public static List<string> GetNamesFromListOfScriptableObjects<T>(IEnumerable<T> list) where T: ScriptableObject
+        public static List<string> GetNamesFromListOfScriptableObjects<T>(IEnumerable<T> list) where T : ScriptableObject
         {
             return list.Select(item => item.name).ToList();
         }
@@ -162,6 +162,19 @@ namespace CodeLibrary24.EditorUtilities
             }
 
             return bounds;
+        }
+
+        public static void SaveScriptableObject<T>(T asset) where T : ScriptableObject
+        {
+            if (asset != null)
+            {
+                EditorUtility.SetDirty(asset);
+                AssetDatabase.SaveAssets();
+            }
+            else
+            {
+                Debug.LogError("Asset to save is null");
+            }
         }
     }
 }

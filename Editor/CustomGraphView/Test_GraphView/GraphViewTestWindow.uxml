@@ -5,8 +5,8 @@
                 <uie:Toolbar name="Toolbar" style="flex-direction: row; justify-content: space-between; flex-grow: 0; flex-shrink: 0;">
                     <uie:ToolbarMenu tabindex="-1" display-tooltip-when-elided="true" text="Node Hub" name="NodeHubToolbarMenu" />
                     <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; flex-direction: row-reverse;">
-                        <uie:ToolbarButton tabindex="-1" text="-" display-tooltip-when-elided="true" name="CreateNodehubButton" tooltip="Delete selected hub" />
-                        <uie:ToolbarButton tabindex="-1" text="+" display-tooltip-when-elided="true" name="CreateNodehubButton" tooltip="Create new hub " />
+                        <uie:ToolbarButton tabindex="-1" text="-" display-tooltip-when-elided="true" name="DeleteNodeHubButton" tooltip="Delete selected hub" />
+                        <uie:ToolbarButton tabindex="-1" text="+" display-tooltip-when-elided="true" name="CreateNodeHubButton" tooltip="Create new hub " />
                     </ui:VisualElement>
                 </uie:Toolbar>
                 <CodeLibrary24.EditorUtilities.CustomGraphView focusable="true" style="flex-grow: 1;" />

@@ -38,5 +38,6 @@ public class GraphViewTestWindow : EditorWindow
     private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
         _graphView.PopulateView(selectedNodeHub);
+        
     }
 }
