@@ -56,7 +56,6 @@ public class GraphViewTestWindow : EditorWindow
 
     private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
-        Debug.LogError("clearrr");
         _graphView.PopulateView(selectedNodeHub);
         
     }

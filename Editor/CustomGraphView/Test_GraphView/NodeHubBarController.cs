@@ -78,9 +78,9 @@ namespace CodeLibrary24.EditorUtilities
                 nodeHubs.Remove(_selectedNodeHub);
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNodeHub));
                 _selectedNodeHub = null;
-                RefreshDropdown();
                 CustomGraphEventChannel.Instance.OnClearViewsRequested?.Invoke();
                 SetDropdownText();
+                RefreshDropdown();
             }, null);
         }
 
@@ -99,14 +99,6 @@ namespace CodeLibrary24.EditorUtilities
             if (nodeHubs == null)
             {
                 EditorCoroutineUtility.StartCoroutine(ShowNodeHubNotFoundPopup(), this);
-                Debug.LogError("No node hubs found. Please create one");
-                return;
-            }
-
-            if (nodeHubs.Count == 0)
-            {
-                EditorCoroutineUtility.StartCoroutine(ShowNodeHubNotFoundPopup(), this);
-                PopupManager.ShowGenericNotificationPopup(_rootVisualElement.localBound, "", "No node hubs found. Please create one", null);
                 return;
             }
 
@@ -156,7 +148,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             var waitForSeconds = new EditorWaitForSeconds(1.0f);
             yield return waitForSeconds;
-            PopupManager.ShowGenericNotificationPopup(_rootVisualElement.localBound, "Alert!", "No node hubs found. Please create one", null);
+            PopupManager.ShowGenericNotificationPopup(_rootVisualElement.localBound, "Alert!", "Node hubs list is null!!", null);
         }
     }
 }
