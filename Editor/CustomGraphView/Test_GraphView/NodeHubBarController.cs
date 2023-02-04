@@ -50,13 +50,13 @@ namespace CodeLibrary24.EditorUtilities
             {
                 AssetDatabase.CreateAsset(nodeHub, assetPath);
             }
-            catch (Exception e)
+            catch
             {
                 PopupManager.ShowGenericNotificationPopup(_rootVisualElement.worldBound, "Asset Not Created!", "Asset creation cancelled by user", null);
                 throw;
             }
 
-            EditorUtils.SaveScriptableObject(nodeHub);
+            EditorUtils.SaveScriptableObject(nodeHub); 
 
             RefreshDropdown();
             _selectedNodeHub = nodeHub;
