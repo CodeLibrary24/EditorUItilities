@@ -25,7 +25,7 @@ namespace CodeLibrary24.EditorUtilities.Popups
 
         private void AddOkayButton()
         {
-            AddButton("Okay", EditorConstants.LightOrange, _onOkayClicked);
+            AddButton("Okay", EditorConstants.BrightOrange, _onOkayClicked);
         }
 
         protected override void OnPopupOpen()

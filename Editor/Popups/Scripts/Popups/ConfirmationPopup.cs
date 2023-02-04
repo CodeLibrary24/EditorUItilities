@@ -30,7 +30,7 @@ namespace CodeLibrary24.EditorUtilities.Popups
         private void AddYesNoButtons()
         {
             AddButton("Yes", EditorConstants.BrightGreen, _onYesClicked);
-            AddButton("No", EditorConstants.LightRed, _onNoClicked);
+            AddButton("No", EditorConstants.Red, _onNoClicked);
         }
 
         protected override void OnPopupClose()
