@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using CodeLibrary24.EditorUtilities;
-using CodeLibrary24.EditorUtilities.Popups;
-using Unity.EditorCoroutines.Editor;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 

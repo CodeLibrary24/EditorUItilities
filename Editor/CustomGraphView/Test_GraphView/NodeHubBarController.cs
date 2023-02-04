@@ -56,8 +56,6 @@ namespace CodeLibrary24.EditorUtilities
                 throw;
             }
 
-// TODO: Save button event
-
             EditorUtils.SaveScriptableObject(nodeHub);
 
             RefreshDropdown();
@@ -81,8 +79,7 @@ namespace CodeLibrary24.EditorUtilities
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNodeHub));
                 _selectedNodeHub = null;
                 RefreshDropdown();
-                // TODO: Save button event
-                // TODO: Clear graph event
+                CustomGraphEventChannel.Instance.OnClearViewsRequested?.Invoke();
             }, null);
         }
 
