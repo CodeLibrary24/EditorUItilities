@@ -1,3 +1,4 @@
+using System;
 using CodeLibrary24.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
@@ -22,6 +23,29 @@ public class GraphViewTestWindow : EditorWindow
         window.titleContent = new GUIContent("GraphViewTestWindow");
     }
 
+    private void OnEnable()
+    {
+        CustomGraphEventChannel.Instance.OnClearViewsRequested += ClearViews;
+        CustomGraphEventChannel.Instance.OnChangeDetected += OnChangeDetected;
+
+    }
+    
+    private void OnDisable()
+    {
+        CustomGraphEventChannel.Instance.OnClearViewsRequested -= ClearViews;
+        CustomGraphEventChannel.Instance.OnChangeDetected -= OnChangeDetected;
+    }
+
+    private void OnChangeDetected()
+    {
+        
+    }
+
+    private void ClearViews()
+    {
+        _graphView.ResetView();
+    }
+
     public void CreateGUI()
     {
         m_VisualTreeAsset.CloneTree(rootVisualElement);
@@ -32,6 +56,7 @@ public class GraphViewTestWindow : EditorWindow
 
     private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
+        Debug.LogError("clearrr");
         _graphView.PopulateView(selectedNodeHub);
         
     }

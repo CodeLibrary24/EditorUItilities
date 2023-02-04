@@ -37,6 +37,10 @@ namespace CodeLibrary24.EditorUtilities
 
         public void PopulateView(NodeHub nodeHub)
         {
+            if (nodeHub == null)
+            {
+                return;
+            }
             _nodeHub = nodeHub;
 
             ResetView();
@@ -47,7 +51,7 @@ namespace CodeLibrary24.EditorUtilities
             }
         }
 
-        private void ResetView()
+        public void ResetView()
         {
             graphViewChanged -= OnGraphViewChanged;
 
@@ -81,6 +85,10 @@ namespace CodeLibrary24.EditorUtilities
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
+            if (_nodeHub == null)
+            {
+                return;
+            }
             var types = TypeCache.GetTypesDerivedFrom<Node>();
             foreach (var type in types)
             {

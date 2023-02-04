@@ -80,12 +80,14 @@ namespace CodeLibrary24.EditorUtilities
                 _selectedNodeHub = null;
                 RefreshDropdown();
                 CustomGraphEventChannel.Instance.OnClearViewsRequested?.Invoke();
+                SetDropdownText();
             }, null);
         }
 
         private void InitializeDropdown()
         {
             _nodeHubDropdown = _rootVisualElement.Q<ToolbarMenu>("NodeHubToolbarMenu");
+            SetDropdownText();
             RefreshDropdown();
         }
 
@@ -145,7 +147,7 @@ namespace CodeLibrary24.EditorUtilities
             }
         }
 
-        private void SetDropdownText(string text)
+        private void SetDropdownText(string text = "Select Node Hub")
         {
             _nodeHubDropdown.text = text;
         }
