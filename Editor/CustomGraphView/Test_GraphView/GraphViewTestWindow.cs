@@ -13,9 +13,9 @@ public class GraphViewTestWindow : EditorWindow
     private static readonly Vector2 MinWindowSize = new Vector2(1400, 800);
     private CustomGraphView _graphView;
     private CustomInspectorView _inspectorView;
-    private ToolbarMenu _nodeHubDropdown;
     private NodeHub _selectedNodeHub;
-
+    private NodeHubBarController _nodeHubBarController;
+    
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
 
@@ -32,69 +32,11 @@ public class GraphViewTestWindow : EditorWindow
         m_VisualTreeAsset.CloneTree(rootVisualElement);
         _graphView = rootVisualElement.Q<CustomGraphView>();
         _inspectorView = rootVisualElement.Q<CustomInspectorView>();
-        InitializeNodeHubToolbar();
+        _nodeHubBarController = new NodeHubBarController(rootVisualElement, OnNodeHubSelected);
     }
 
-    private List<NodeHub> GetNodeHubs()
+    private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
-        return EditorUtils.GetAllInstances<NodeHub>();
-    }
-
-    private void InitializeNodeHubToolbar()
-    {
-        _nodeHubDropdown = rootVisualElement.Q<ToolbarMenu>("NodeHubToolbarMenu");
-
-        List<NodeHub> nodeHubs = GetNodeHubs();
-
-        if (nodeHubs == null)
-        {
-            EditorCoroutineUtility.StartCoroutine(ShowNodeHubNotFoundPopup(), this);
-            Debug.LogError("No node hubs found. Please create one");
-            return;
-        }
-
-        if (nodeHubs.Count == 0)
-        {
-            EditorCoroutineUtility.StartCoroutine(ShowNodeHubNotFoundPopup(), this);
-            PopupManager.ShowGenericNotificationPopup(rootVisualElement.localBound, "", "No node hubs found. Please create one", null);
-            return;
-        }
-
-        for (var i = 0; i < nodeHubs.Count; i++)
-        {
-            var hub = nodeHubs[i];
-            _nodeHubDropdown.menu.InsertAction(i, nodeHubs[i].name, OnNodeHubDropdownValueChanged);
-        }
-    }
-
-    private void OnNodeHubDropdownValueChanged(DropdownMenuAction obj)
-    {
-        OnNodeHubSelected(obj.name);
-        _nodeHubDropdown.text = obj.name;
-    }
-
-    private IEnumerator ShowNodeHubNotFoundPopup()
-    {
-        var waitForSeconds = new EditorWaitForSeconds(1.0f);
-
-        yield return waitForSeconds;
-        PopupManager.ShowGenericNotificationPopup(focusedWindow.rootVisualElement.contentRect, "Alert!", "No node hubs found. Please create one", null);
-    }
-
-    // TODO: Add option to create and delete node hubs from the node hub bar
-
-    private void OnNodeHubSelected(string nodeHubName)
-    {
-        List<NodeHub> nodeHubs = GetNodeHubs();
-
-        _selectedNodeHub = nodeHubs.Find(x => x.name == nodeHubName);
-        if (_selectedNodeHub)
-        {
-            _graphView.PopulateView(_selectedNodeHub);
-        }
-        else
-        {
-            Debug.LogError("Node hub not found");
-        }
+        _graphView.PopulateView(selectedNodeHub);
     }
 }
