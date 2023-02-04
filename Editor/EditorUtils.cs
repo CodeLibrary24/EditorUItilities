@@ -15,6 +15,11 @@ namespace CodeLibrary24.EditorUtilities
                 .Select(AssetDatabase.LoadAssetAtPath<T>).ToList();
         }
 
+        public static List<string> GetNamesFromListOfScriptableObjects<T>(IEnumerable<T> list) where T: ScriptableObject
+        {
+            return list.Select(item => item.name).ToList();
+        }
+
         private static readonly List<int> PreviouslyDisabledUIElements = new List<int>();
 
         public static void DisableAll(VisualElement root)
