@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace CodeLibrary24.EditorUtilities
 {
-    [CreateAssetMenu(menuName = "Create NodeHub", fileName = "NodeHub", order = 0)]
     public class NodeHub : ScriptableObject
     {
         public List<Node> nodes = new List<Node>();
