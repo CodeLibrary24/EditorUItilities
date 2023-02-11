@@ -150,5 +150,11 @@ namespace CodeLibrary24.EditorUtilities
             yield return waitForSeconds;
             PopupManager.ShowGenericNotificationPopup(_rootVisualElement.localBound, "Alert!", "Node hubs list is null!!", null);
         }
+
+        public void ForceSelectNodeHub(NodeHub nodeHub)
+        {
+            _selectedNodeHub = nodeHub;
+            SetDropdownText(nodeHub.name);
+        }
     }
 }

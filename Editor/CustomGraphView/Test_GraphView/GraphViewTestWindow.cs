@@ -9,8 +9,8 @@ public class GraphViewTestWindow : EditorWindow
     private static readonly Vector2 MinWindowSize = new Vector2(1400, 800);
     private static CustomGraphView _graphView;
     private CustomInspectorView _inspectorView;
-    private NodeHub _selectedNodeHub;
-    private NodeHubBarController _nodeHubBarController;
+    private static NodeHub _selectedNodeHub;
+    private static NodeHubBarController _nodeHubBarController;
 
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
@@ -26,14 +26,23 @@ public class GraphViewTestWindow : EditorWindow
     [OnOpenAsset]
     public static bool OnOpenAsset(int instanceID, int line)
     {
-        if (Selection.activeObject is NodeHub)
+        NodeHub nodeHub = Selection.activeObject as NodeHub;
+        
+        if (nodeHub)
         {
             OpenWindow();
-            OnNodeHubSelected(Selection.activeObject as NodeHub);
+            OpenToolFromNodeHub(nodeHub);
             return true;
         }
 
         return false;
+    }
+
+    private static void OpenToolFromNodeHub(NodeHub nodeHub)
+    {
+        _selectedNodeHub = nodeHub;
+        _nodeHubBarController.ForceSelectNodeHub(nodeHub);
+        OnNodeHubSelected(nodeHub);
     }
     
     private void OnEnable()
