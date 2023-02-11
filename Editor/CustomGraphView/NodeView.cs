@@ -31,12 +31,12 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateInputPorts()
         {
-            if (!node.hasInputPort)
+            if (!node.HasInputPort)
             {
                 return;
             }
 
-            inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, GetPortCapacity(node.inputPortCapacityType), typeof(bool));
+            inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, GetPortCapacity(node.InputPortCapacityType), typeof(bool));
             if (inputPort != null)
             {
                 inputPort.portName = String.Empty;
@@ -46,12 +46,12 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateOutputPorts()
         {
-            if (!node.hasOutputPort)
+            if (!node.HasOutputPort)
             {
                 return;
             }
 
-            outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, GetPortCapacity(node.outputPortCapacityType), typeof(bool));
+            outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, GetPortCapacity(node.OutputPortCapacityType), typeof(bool));
             if (outputPort != null)
             {
                 outputPort.portName = String.Empty;

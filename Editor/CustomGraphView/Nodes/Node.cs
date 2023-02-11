@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeLibrary24.EditorUtilities
 {
@@ -8,19 +9,20 @@ namespace CodeLibrary24.EditorUtilities
         [Header("Node Properties")]
         public string guid;
 
-        public bool hasInputPort;
-        public bool hasOutputPort;
-        public PortCapacityType inputPortCapacityType;
-        public PortCapacityType outputPortCapacityType;
+        public abstract bool HasInputPort { get; }
+        public abstract bool HasOutputPort { get; }
+        public abstract PortCapacityType InputPortCapacityType { get; }
+        public abstract PortCapacityType OutputPortCapacityType { get; }
 
         public Vector2 graphPosition;
-        public List<Node> childrenNodes;
 
         [Space]
         [Header("Data")]
         public string nodeName;
+
         public string description;
-        
+        public List<Node> childrenNodes;
+
         public Node()
         {
             childrenNodes = new List<Node>();
@@ -32,11 +34,5 @@ namespace CodeLibrary24.EditorUtilities
             node.childrenNodes = childrenNodes.ConvertAll(n => n.Clone()); // TODO: This needs testing and use case - keeping it here for now
             return node;
         }
-    }
-
-    public enum PortCapacityType
-    {
-        Single
-        , Multi
     }
 }

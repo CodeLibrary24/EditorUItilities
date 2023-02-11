@@ -4,6 +4,7 @@
             <ui:VisualElement name="LeftPane" style="flex-grow: 1; width: auto; min-width: 800px;">
                 <uie:Toolbar name="Toolbar" style="flex-direction: row; justify-content: space-between; flex-grow: 0; flex-shrink: 0;">
                     <uie:ToolbarMenu tabindex="-1" display-tooltip-when-elided="true" text="Node Hub" name="NodeHubToolbarMenu" />
+                    <uie:ToolbarButton tabindex="-1" text="Refresh" display-tooltip-when-elided="true" name="RefreshButton" />
                     <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; flex-direction: row-reverse;">
                         <uie:ToolbarButton tabindex="-1" text="-" display-tooltip-when-elided="true" name="DeleteNodeHubButton" tooltip="Delete selected hub" />
                         <uie:ToolbarButton tabindex="-1" text="+" display-tooltip-when-elided="true" name="CreateNodeHubButton" tooltip="Create new hub " />
