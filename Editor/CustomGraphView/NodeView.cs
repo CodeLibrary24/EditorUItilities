@@ -15,6 +15,10 @@ namespace CodeLibrary24.EditorUtilities
 
         public NodeView(Node node)
         {
+            if (node == null)
+            {
+                return;
+            }
             this.node = node;
             title = node.nodeName;
             viewDataKey = node.guid;
