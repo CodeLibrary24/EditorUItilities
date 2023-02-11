@@ -16,13 +16,15 @@ namespace CodeLibrary24.EditorUtilities
 
         private readonly VisualElement _rootVisualElement;
         private readonly Action<NodeHub> _onNodeHubSelected;
+        private readonly Action _onRefreshRequested;
 
         private NodeHub _selectedNodeHub;
 
-        public NodeHubBarController(VisualElement rootVisualElement, Action<NodeHub> onNodeHubSelected)
+        public NodeHubBarController(VisualElement rootVisualElement, Action<NodeHub> onNodeHubSelected, Action onRefreshRequested)
         {
             _rootVisualElement = rootVisualElement;
             _onNodeHubSelected = onNodeHubSelected;
+            _onRefreshRequested = onRefreshRequested;
             InitializeNodeHubToolbar();
         }
 
@@ -34,11 +36,21 @@ namespace CodeLibrary24.EditorUtilities
 
         private void InitializeButtons()
         {
+            Button refreshButton = _rootVisualElement.Q<ToolbarButton>("RefreshButton");
+            refreshButton.clicked += OnRefreshButtonClicked;
+            
             Button createButton = _rootVisualElement.Q<Button>("CreateNodeHubButton");
             createButton.clicked += CreateNodeHub;
 
             Button deleteButton = _rootVisualElement.Q<Button>("DeleteNodeHubButton");
             deleteButton.clicked += DeleteSelectedNodeHub;
+            
+            
+        }
+
+        private void OnRefreshButtonClicked()
+        {
+            _onRefreshRequested?.Invoke();
         }
 
         private void CreateNodeHub()

@@ -23,10 +23,11 @@ namespace CodeLibrary24.EditorUtilities
             LoadStyleSheet();
             AddManipulators();
 
-            Undo.undoRedoPerformed += OnUndoRedo;
+            Undo.undoRedoPerformed += Refresh;
         }
 
-        private void OnUndoRedo()
+        
+        public void Refresh()
         {
             PopulateView(_nodeHub);
             AssetDatabase.SaveAssets();

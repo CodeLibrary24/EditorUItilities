@@ -76,9 +76,14 @@ public class GraphViewTestWindow : EditorWindow
         m_VisualTreeAsset.CloneTree(rootVisualElement);
         _graphView = rootVisualElement.Q<CustomGraphView>();
         _inspectorView = rootVisualElement.Q<CustomInspectorView>();
-        _nodeHubBarController = new NodeHubBarController(rootVisualElement, OnNodeHubSelected);
+        _nodeHubBarController = new NodeHubBarController(rootVisualElement, OnNodeHubSelected, Refresh);
 
         _graphView.OnNodeViewSelected = OnNodeSelectionChanged;
+    }
+
+    private void Refresh()
+    {
+        _graphView.Refresh();
     }
 
     private static void OnNodeHubSelected(NodeHub selectedNodeHub)
