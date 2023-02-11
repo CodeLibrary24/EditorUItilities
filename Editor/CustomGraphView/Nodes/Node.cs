@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CodeLibrary24.EditorUtilities
@@ -6,6 +7,7 @@ namespace CodeLibrary24.EditorUtilities
     {
         public string nodeName;
         public string guid;
-        public Vector2 graphPosition;  
+        public Vector2 graphPosition;
+        public List<Node> childrenNodes;
     }
 }

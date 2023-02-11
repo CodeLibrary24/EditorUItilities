@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
@@ -69,9 +70,20 @@ namespace CodeLibrary24.EditorUtilities
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphviewchange)
         {
+            ClearGraphView(graphviewchange);
+            AddEgdesAsChildren(graphviewchange);
+
+            return graphviewchange;
+        }
+
+        private void ClearGraphView(GraphViewChange graphviewchange)
+        {
             List<GraphElement> elementsToRemove = graphviewchange.elementsToRemove;
 
-            if (elementsToRemove == null) return graphviewchange;
+            if (elementsToRemove == null)
+            {
+                return;
+            }
 
             foreach (GraphElement element in elementsToRemove)
             {
@@ -80,8 +92,19 @@ namespace CodeLibrary24.EditorUtilities
                     _nodeHub.DeleteNode(nodeView.node);
                 }
             }
+        }
 
-            return graphviewchange;
+        private void AddEgdesAsChildren(GraphViewChange graphviewchange)
+        {
+            if (graphviewchange.edgesToCreate != null)
+            {
+                graphviewchange.edgesToCreate.ForEach(edge =>
+                {
+                    NodeView parentView = edge.output.node as NodeView;
+                    NodeView childView = edge.input.node as NodeView;
+                    AddChild(parentView.node, childView.node);
+                });
+            }
         }
 
         private void CreateNodeView(Node node)
@@ -108,6 +131,22 @@ namespace CodeLibrary24.EditorUtilities
         {
             Node node = _nodeHub.CreateNode(type);
             CreateNodeView(node);
+        }
+
+        public void AddChild(Node parent, Node child)
+        {
+            // TODO: Check if this type of node accepts children and only then add child
+            parent.childrenNodes.Add(child);
+        }
+
+        private void RemoveChild(Node parent, Node child)
+        {
+            parent.childrenNodes.Remove(child);
+        }
+
+        private List<Node> GetChildren(Node parent)
+        {
+            return parent.childrenNodes;
         }
     }
 }
