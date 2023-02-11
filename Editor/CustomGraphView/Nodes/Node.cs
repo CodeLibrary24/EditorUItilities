@@ -9,5 +9,10 @@ namespace CodeLibrary24.EditorUtilities
         public string guid;
         public Vector2 graphPosition;
         public List<Node> childrenNodes;
+
+        public Node()
+        {
+            childrenNodes = new List<Node>();
+        }
     }
 }
