@@ -1,4 +1,3 @@
-using System;
 using CodeLibrary24.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
@@ -54,11 +53,18 @@ public class GraphViewTestWindow : EditorWindow
         _graphView = rootVisualElement.Q<CustomGraphView>();
         _inspectorView = rootVisualElement.Q<CustomInspectorView>();
         _nodeHubBarController = new NodeHubBarController(rootVisualElement, OnNodeHubSelected);
+
+        _graphView.OnNodeViewSelected = OnNodeSelectionChanged;
     }
 
     private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
         _graphView.PopulateView(selectedNodeHub);
         
+    }
+
+    private void OnNodeSelectionChanged(NodeView nodeView)
+    {
+        _inspectorView.InspectTargetObject<Editor>(nodeView.node);
     }
 }

@@ -6,9 +6,12 @@ namespace CodeLibrary24.EditorUtilities
 {
     public class NodeView : UnityEditor.Experimental.GraphView.Node
     {
+        
         public Node node;
         public Port inputPort;
         public Port outputPort;
+
+        public Action<NodeView> OnNodeViewSelected;
         
         public NodeView(Node node)
         {
@@ -52,6 +55,12 @@ namespace CodeLibrary24.EditorUtilities
             base.SetPosition(newPos);
             node.graphPosition.x = newPos.xMin;
             node.graphPosition.y = newPos.yMin;
+        }
+
+        public override void OnSelected()
+        {
+            base.OnSelected();
+            OnNodeViewSelected?.Invoke(this);
         }
     }
 }

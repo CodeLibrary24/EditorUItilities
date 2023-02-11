@@ -13,6 +13,8 @@ namespace CodeLibrary24.EditorUtilities
         {
         }
 
+        public Action<NodeView> OnNodeViewSelected;
+
         private NodeHub _nodeHub;
 
         public CustomGraphView()
@@ -148,6 +150,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             NodeView nodeView = new NodeView(node);
             AddElement(nodeView);
+            OnNodeViewSelected?.Invoke(nodeView);
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
