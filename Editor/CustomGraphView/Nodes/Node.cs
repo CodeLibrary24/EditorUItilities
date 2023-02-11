@@ -14,5 +14,12 @@ namespace CodeLibrary24.EditorUtilities
         {
             childrenNodes = new List<Node>();
         }
+
+        public virtual Node Clone()
+        {
+            Node node = Instantiate(this);
+            node.childrenNodes = childrenNodes.ConvertAll(n => n.Clone()); // TODO: This needs testing and use case - keeping it here for now
+            return node;
+        }
     }
 }
