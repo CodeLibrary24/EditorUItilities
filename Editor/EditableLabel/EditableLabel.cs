@@ -17,7 +17,7 @@ namespace CodeLibrary24.EditorUtilities
         private TextField _textField;
         private bool _isEditing = false;
 
-        public Action<string> OnEditFinished;
+        public Action<string> onEditFinished;
 
         public string Text
         {
@@ -83,7 +83,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             if (!IsEditing) return;
 
-            OnEditFinished?.Invoke(_textField.value);
+            onEditFinished?.Invoke(_textField.value);
             IsEditing = false;
         }
     }

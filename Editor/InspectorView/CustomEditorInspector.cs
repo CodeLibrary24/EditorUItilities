@@ -6,22 +6,22 @@ namespace CodeLibrary24.EditorUtilities
     public abstract class CustomEditorInspector : Editor
     {
 
-        protected VisualElement RootVisualElement;
+        protected VisualElement rootVisualElement;
 
         protected abstract string UxmlPath { get; }
 
         private void OnEnable()
         {
-            RootVisualElement = new VisualElement();
+            rootVisualElement = new VisualElement();
             var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
-            visualTree.CloneTree(RootVisualElement);
+            visualTree.CloneTree(rootVisualElement);
             Initialize();
         }
 
         public override VisualElement CreateInspectorGUI()
         {
             DrawEditor();
-            return RootVisualElement;
+            return rootVisualElement;
         }
 
         protected virtual void Initialize()
@@ -39,7 +39,7 @@ namespace CodeLibrary24.EditorUtilities
                     backgroundColor = EditorConstants.Green
                 }
             };
-            RootVisualElement.Add(saveButton);
+            rootVisualElement.Add(saveButton);
         }
 
         protected virtual void Save()

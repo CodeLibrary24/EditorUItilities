@@ -2,12 +2,14 @@ using System;
 using CodeLibrary24.EditorUtilities.Popups;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class PopupTestWindow : EditorWindow
 {
+    [FormerlySerializedAs("_visualTreeAsset")]
     [SerializeField]
-    private VisualTreeAsset _visualTreeAsset;
+    private VisualTreeAsset visualTreeAsset;
 
     private static PopupTestWindow _window;
 

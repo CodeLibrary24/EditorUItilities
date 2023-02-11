@@ -8,10 +8,10 @@ namespace CodeLibrary24.EditorUtilities.Popups
 {
     public abstract class Popup : PopupWindowContent
     {
-        protected VisualElement HeaderContainer;
-        protected Label HeadingLabel;
-        protected VisualElement MiddleContainer;
-        protected VisualElement FooterContainer;
+        protected VisualElement headerContainer;
+        protected Label headingLabel;
+        protected VisualElement middleContainer;
+        protected VisualElement footerContainer;
 
         private const string UxmlPath = EditorPaths.BasePath + "/Popups/UI/Popup.uxml";
 
@@ -40,11 +40,11 @@ namespace CodeLibrary24.EditorUtilities.Popups
 
         private void CacheReferences(VisualElement rootVisualElement)
         {
-            HeaderContainer = rootVisualElement.Q<VisualElement>("HeaderContainer");
-            MiddleContainer = rootVisualElement.Q<VisualElement>("MiddleContainer");
-            FooterContainer = rootVisualElement.Q<VisualElement>("FooterContainer");
+            headerContainer = rootVisualElement.Q<VisualElement>("HeaderContainer");
+            middleContainer = rootVisualElement.Q<VisualElement>("MiddleContainer");
+            footerContainer = rootVisualElement.Q<VisualElement>("FooterContainer");
 
-            HeadingLabel = rootVisualElement.Q<Label>("Heading");
+            headingLabel = rootVisualElement.Q<Label>("Heading");
 
             CachePopupReferences(rootVisualElement);
         }
@@ -60,7 +60,7 @@ namespace CodeLibrary24.EditorUtilities.Popups
 
         public void AddHeading(string heading)
         {
-            HeadingLabel.text = heading;
+            headingLabel.text = heading;
         }
 
         public void AddMessage(string message)
@@ -75,7 +75,7 @@ namespace CodeLibrary24.EditorUtilities.Popups
                 }
             };
 
-            MiddleContainer.Add(label);
+            middleContainer.Add(label);
         }
 
 
@@ -94,7 +94,7 @@ namespace CodeLibrary24.EditorUtilities.Popups
                 onClicked?.Invoke();
                 ClosePopup();
             };
-            FooterContainer.Add(button);
+            footerContainer.Add(button);
         }
 
         public void ClosePopup()

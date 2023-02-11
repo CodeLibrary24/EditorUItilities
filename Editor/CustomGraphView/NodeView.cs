@@ -1,17 +1,44 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEditor.Experimental.GraphView;
 
 namespace CodeLibrary24.EditorUtilities
 {
     public class NodeView : UnityEditor.Experimental.GraphView.Node
     {
         public Node node;
-
+        public Port inputPort;
+        public Port outputPort;
+        
         public NodeView(Node node)
         {
             this.node = node;
-            this.title = node.nodeName;
-            this.viewDataKey = node.guid;
+            title = node.nodeName;
+            viewDataKey = node.guid;
             SetNodePositionInGraph();
+
+            CreateInputPorts();
+            CreateOutputPorts();
+        }
+
+        private void CreateInputPorts()
+        {
+            inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
+            if (inputPort != null)
+            {
+                inputPort.portName = String.Empty;
+                inputContainer.Add(inputPort);
+            }
+        }
+
+        private void CreateOutputPorts()
+        {       
+            outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+            if (outputPort != null)
+            {
+                outputPort.portName = String.Empty;
+                outputContainer.Add(outputPort);
+            }
         }
 
         private void SetNodePositionInGraph()

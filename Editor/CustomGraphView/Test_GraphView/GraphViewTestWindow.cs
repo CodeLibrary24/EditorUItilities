@@ -2,6 +2,7 @@ using System;
 using CodeLibrary24.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class GraphViewTestWindow : EditorWindow
@@ -12,8 +13,9 @@ public class GraphViewTestWindow : EditorWindow
     private NodeHub _selectedNodeHub;
     private NodeHubBarController _nodeHubBarController;
     
+    [FormerlySerializedAs("m_VisualTreeAsset")]
     [SerializeField]
-    private VisualTreeAsset m_VisualTreeAsset = default;
+    private VisualTreeAsset mVisualTreeAsset = default;
 
     [MenuItem("CodeLibrary24/EditorUtilities/Tests/Graph View")]
     public static void ShowExample()
@@ -25,15 +27,15 @@ public class GraphViewTestWindow : EditorWindow
 
     private void OnEnable()
     {
-        CustomGraphEventChannel.Instance.OnClearViewsRequested += ClearViews;
-        CustomGraphEventChannel.Instance.OnChangeDetected += OnChangeDetected;
+        CustomGraphEventChannel.Instance.onClearViewsRequested += ClearViews;
+        CustomGraphEventChannel.Instance.onChangeDetected += OnChangeDetected;
 
     }
     
     private void OnDisable()
     {
-        CustomGraphEventChannel.Instance.OnClearViewsRequested -= ClearViews;
-        CustomGraphEventChannel.Instance.OnChangeDetected -= OnChangeDetected;
+        CustomGraphEventChannel.Instance.onClearViewsRequested -= ClearViews;
+        CustomGraphEventChannel.Instance.onChangeDetected -= OnChangeDetected;
     }
 
     private void OnChangeDetected()
@@ -48,7 +50,7 @@ public class GraphViewTestWindow : EditorWindow
 
     public void CreateGUI()
     {
-        m_VisualTreeAsset.CloneTree(rootVisualElement);
+        mVisualTreeAsset.CloneTree(rootVisualElement);
         _graphView = rootVisualElement.Q<CustomGraphView>();
         _inspectorView = rootVisualElement.Q<CustomInspectorView>();
         _nodeHubBarController = new NodeHubBarController(rootVisualElement, OnNodeHubSelected);

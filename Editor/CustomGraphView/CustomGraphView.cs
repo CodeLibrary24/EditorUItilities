@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
@@ -41,6 +42,7 @@ namespace CodeLibrary24.EditorUtilities
             {
                 return;
             }
+
             _nodeHub = nodeHub;
 
             ResetView();
@@ -49,6 +51,11 @@ namespace CodeLibrary24.EditorUtilities
             {
                 CreateNodeView(node);
             }
+        }
+
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+        {
+            return ports.ToList().Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
         }
 
         public void ResetView()
@@ -89,6 +96,7 @@ namespace CodeLibrary24.EditorUtilities
             {
                 return;
             }
+
             var types = TypeCache.GetTypesDerivedFrom<Node>();
             foreach (var type in types)
             {

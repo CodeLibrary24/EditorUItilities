@@ -7,7 +7,7 @@ namespace CodeLibrary24.EditorUtilities
         private static CustomGraphEventChannel _instance = null;
         public static CustomGraphEventChannel Instance => _instance ??= new CustomGraphEventChannel();
 
-        public Action OnClearViewsRequested;
-        public Action OnChangeDetected;
+        public Action onClearViewsRequested;
+        public Action onChangeDetected;
     }
 }

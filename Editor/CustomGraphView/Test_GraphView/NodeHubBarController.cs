@@ -78,7 +78,7 @@ namespace CodeLibrary24.EditorUtilities
                 nodeHubs.Remove(_selectedNodeHub);
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(_selectedNodeHub));
                 _selectedNodeHub = null;
-                CustomGraphEventChannel.Instance.OnClearViewsRequested?.Invoke();
+                CustomGraphEventChannel.Instance.onClearViewsRequested?.Invoke();
                 SetDropdownText();
                 RefreshDropdown();
             }, null);

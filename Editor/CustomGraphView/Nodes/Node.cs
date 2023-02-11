@@ -6,6 +6,6 @@ namespace CodeLibrary24.EditorUtilities
     {
         public string nodeName;
         public string guid;
-        public Vector2 graphPosition;
+        public Vector2 graphPosition;  
     }
 }
