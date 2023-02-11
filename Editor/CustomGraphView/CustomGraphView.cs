@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
@@ -47,11 +46,37 @@ namespace CodeLibrary24.EditorUtilities
             _nodeHub = nodeHub;
 
             ResetView();
+            CreateNodeViews(nodeHub);
+            CreateEdges(nodeHub);
+        }
 
+        private void CreateNodeViews(NodeHub nodeHub)
+        {
             foreach (Node node in nodeHub.nodes)
             {
                 CreateNodeView(node);
             }
+        }
+
+        private void CreateEdges(NodeHub nodeHub)
+        {
+            foreach (Node node in nodeHub.nodes)
+            {
+                List<Node> children = nodeHub.GetChildren(node);
+                foreach (Node childNode in children)
+                {
+                    NodeView parentNodeView = FindNodeView(node);
+                    NodeView childNodeView = FindNodeView(childNode);
+
+                    Edge edge = parentNodeView.outputPort.ConnectTo(childNodeView.inputPort);
+                    AddElement(edge);
+                }
+            }
+        }
+
+        private NodeView FindNodeView(Node node)
+        {
+            return GetNodeByGuid(node.guid) as NodeView;
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
