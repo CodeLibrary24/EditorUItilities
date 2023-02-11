@@ -12,7 +12,7 @@
                 <CodeLibrary24.EditorUtilities.CustomGraphView focusable="true" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:VisualElement name="RightPane" style="flex-grow: 1; min-height: auto; min-width: 200px;">
-                <CodeLibrary24.EditorUtilities.CustomInspectorView />
+                <CodeLibrary24.EditorUtilities.CustomInspectorView name="CustomInspectorView" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
             </ui:VisualElement>
         </CodeLibrary24.EditorUtilities.SplitView>
     </ui:VisualElement>
