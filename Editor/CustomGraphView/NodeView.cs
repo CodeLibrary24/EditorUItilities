@@ -19,6 +19,7 @@ namespace CodeLibrary24.EditorUtilities
             {
                 return;
             }
+
             this.node = node;
             title = node.nodeName;
             viewDataKey = node.guid;
@@ -30,7 +31,12 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateInputPorts()
         {
-            inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
+            if (!node.hasInputPort)
+            {
+                return;
+            }
+
+            inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, GetPortCapacity(node.inputPortCapacityType), typeof(bool));
             if (inputPort != null)
             {
                 inputPort.portName = String.Empty;
@@ -40,12 +46,30 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateOutputPorts()
         {
-            outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+            if (!node.hasOutputPort)
+            {
+                return;
+            }
+
+            outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, GetPortCapacity(node.outputPortCapacityType), typeof(bool));
             if (outputPort != null)
             {
                 outputPort.portName = String.Empty;
                 outputContainer.Add(outputPort);
             }
+        }
+
+        private Port.Capacity GetPortCapacity(PortCapacityType portCapacityType)
+        {
+            switch (portCapacityType)
+            {
+                case PortCapacityType.Single:
+                    return Port.Capacity.Single;
+                case PortCapacityType.Multi:
+                    return Port.Capacity.Multi;
+            }
+
+            return Port.Capacity.Single;
         }
 
         private void SetNodePositionInGraph()
