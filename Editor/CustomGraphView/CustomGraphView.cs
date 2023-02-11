@@ -91,7 +91,19 @@ namespace CodeLibrary24.EditorUtilities
                 {
                     _nodeHub.DeleteNode(nodeView.node);
                 }
+
+                if (element is Edge edge)
+                {
+                    RemoveNode(edge);
+                }
             }
+        }
+
+        private void RemoveNode(Edge edge)
+        {
+            NodeView parentView = edge.output.node as NodeView;
+            NodeView childView = edge.input.node as NodeView;
+            _nodeHub.RemoveChild(parentView.node, childView.node);
         }
 
         private void AddEgdesAsChildren(GraphViewChange graphviewchange)
@@ -102,7 +114,7 @@ namespace CodeLibrary24.EditorUtilities
                 {
                     NodeView parentView = edge.output.node as NodeView;
                     NodeView childView = edge.input.node as NodeView;
-                    AddChild(parentView.node, childView.node);
+                    _nodeHub.AddChild(parentView.node, childView.node);
                 });
             }
         }
@@ -131,22 +143,6 @@ namespace CodeLibrary24.EditorUtilities
         {
             Node node = _nodeHub.CreateNode(type);
             CreateNodeView(node);
-        }
-
-        public void AddChild(Node parent, Node child)
-        {
-            // TODO: Check if this type of node accepts children and only then add child
-            parent.childrenNodes.Add(child);
-        }
-
-        private void RemoveChild(Node parent, Node child)
-        {
-            parent.childrenNodes.Remove(child);
-        }
-
-        private List<Node> GetChildren(Node parent)
-        {
-            return parent.childrenNodes;
         }
     }
 }

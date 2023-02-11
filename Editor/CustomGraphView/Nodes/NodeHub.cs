@@ -37,5 +37,21 @@ namespace CodeLibrary24.EditorUtilities
             AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
         }
+        
+        public void AddChild(Node parent, Node child)
+        {
+            // TODO: Check if this type of node accepts children and only then add child
+            parent.childrenNodes.Add(child);
+        }
+
+        public void RemoveChild(Node parent, Node child)
+        {
+            parent.childrenNodes.Remove(child);
+        }
+
+        public List<Node> GetChildren(Node parent)
+        {
+            return parent.childrenNodes;
+        }
     }
 }
