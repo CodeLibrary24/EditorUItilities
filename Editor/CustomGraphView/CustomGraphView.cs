@@ -22,6 +22,14 @@ namespace CodeLibrary24.EditorUtilities
             Insert(0, new GridBackground());
             LoadStyleSheet();
             AddManipulators();
+
+            Undo.undoRedoPerformed += OnUndoRedo;
+        }
+
+        private void OnUndoRedo()
+        {
+            PopulateView(_nodeHub);
+            AssetDatabase.SaveAssets();
         }
 
         private void LoadStyleSheet()

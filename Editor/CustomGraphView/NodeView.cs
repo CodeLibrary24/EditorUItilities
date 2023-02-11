@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 
@@ -6,13 +7,12 @@ namespace CodeLibrary24.EditorUtilities
 {
     public class NodeView : UnityEditor.Experimental.GraphView.Node
     {
-        
         public Node node;
         public Port inputPort;
         public Port outputPort;
 
         public Action<NodeView> OnNodeViewSelected;
-        
+
         public NodeView(Node node)
         {
             this.node = node;
@@ -35,7 +35,7 @@ namespace CodeLibrary24.EditorUtilities
         }
 
         private void CreateOutputPorts()
-        {       
+        {
             outputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
             if (outputPort != null)
             {
@@ -53,8 +53,10 @@ namespace CodeLibrary24.EditorUtilities
         public override void SetPosition(Rect newPos)
         {
             base.SetPosition(newPos);
+            Undo.RecordObject(node, "Node Position Record");
             node.graphPosition.x = newPos.xMin;
             node.graphPosition.y = newPos.yMin;
+            EditorUtility.SetDirty(node);
         }
 
         public override void OnSelected()
