@@ -150,6 +150,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             NodeView nodeView = new NodeView(node);
             AddElement(nodeView);
+            nodeView.OnNodeViewSelected = OnNodeViewSelected;
             OnNodeViewSelected?.Invoke(nodeView);
         }
 
