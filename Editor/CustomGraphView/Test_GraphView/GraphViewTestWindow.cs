@@ -11,7 +11,7 @@ public class GraphViewTestWindow : EditorWindow
     private CustomInspectorView _inspectorView;
     private NodeHub _selectedNodeHub;
     private NodeHubBarController _nodeHubBarController;
-    
+
     [FormerlySerializedAs("m_VisualTreeAsset")]
     [SerializeField]
     private VisualTreeAsset mVisualTreeAsset = default;
@@ -28,9 +28,8 @@ public class GraphViewTestWindow : EditorWindow
     {
         CustomGraphEventChannel.Instance.onClearViewsRequested += ClearViews;
         CustomGraphEventChannel.Instance.onChangeDetected += OnChangeDetected;
-
     }
-    
+
     private void OnDisable()
     {
         CustomGraphEventChannel.Instance.onClearViewsRequested -= ClearViews;
@@ -39,7 +38,6 @@ public class GraphViewTestWindow : EditorWindow
 
     private void OnChangeDetected()
     {
-        
     }
 
     private void ClearViews()
@@ -60,11 +58,11 @@ public class GraphViewTestWindow : EditorWindow
     private void OnNodeHubSelected(NodeHub selectedNodeHub)
     {
         _graphView.PopulateView(selectedNodeHub);
-        
     }
 
     private void OnNodeSelectionChanged(NodeView nodeView)
     {
+        EditorGUIUtility.PingObject(nodeView.node);
         _inspectorView.InspectTargetObject<Editor>(nodeView.node);
     }
 }
