@@ -1,10 +1,7 @@
 {
-    "name": "com.codelibrary24.editorutilities",
-    "rootNamespace": "CodeLibrary24.EditorUtilities",
-    "references": [
-        "GUID:478a2357cc57436488a56e564b08d223",
-        "GUID:f012350b23ea2964e892ca5dae1b867a"
-    ],
+    "name": "com.codelibrary24.utilities",
+    "rootNamespace": "CodeLibrary24.Utilities",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,4 +1,5 @@
 using CodeLibrary24.EditorUtilities;
+using CodeLibrary24.Utilities;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class GraphViewTestWindow : EditorWindow
     private static readonly Vector2 MinWindowSize = new Vector2(1400, 800);
     private static CustomGraphView _graphView;
     private CustomInspectorView _inspectorView;
-    private static NodeHub _selectedNodeHub;
+    private static CustomNodeHub _selectedCustomNodeHub;
     private static NodeHubBarController _nodeHubBarController;
 
     [SerializeField]
@@ -26,23 +27,23 @@ public class GraphViewTestWindow : EditorWindow
     [OnOpenAsset]
     public static bool OnOpenAsset(int instanceID, int line)
     {
-        NodeHub nodeHub = Selection.activeObject as NodeHub;
+        CustomNodeHub customNodeHub = Selection.activeObject as CustomNodeHub;
         
-        if (nodeHub)
+        if (customNodeHub)
         {
             OpenWindow();
-            OpenToolFromNodeHub(nodeHub);
+            OpenToolFromNodeHub(customNodeHub);
             return true;
         }
 
         return false;
     }
 
-    private static void OpenToolFromNodeHub(NodeHub nodeHub)
+    private static void OpenToolFromNodeHub(CustomNodeHub customNodeHub)
     {
-        _selectedNodeHub = nodeHub;
-        _nodeHubBarController.ForceSelectNodeHub(nodeHub);
-        OnNodeHubSelected(nodeHub);
+        _selectedCustomNodeHub = customNodeHub;
+        _nodeHubBarController.ForceSelectNodeHub(customNodeHub);
+        OnNodeHubSelected(customNodeHub);
     }
     
     private void OnEnable()
@@ -86,14 +87,14 @@ public class GraphViewTestWindow : EditorWindow
         _graphView.Refresh();
     }
 
-    private static void OnNodeHubSelected(NodeHub selectedNodeHub)
+    private static void OnNodeHubSelected(CustomNodeHub selectedCustomNodeHub)
     {
-        _graphView.PopulateView(selectedNodeHub);
+        _graphView.PopulateView(selectedCustomNodeHub);
     }
 
     private void OnNodeSelectionChanged(NodeView nodeView)
     {
-        EditorGUIUtility.PingObject(nodeView.node);
-        _inspectorView.InspectTargetObject<Editor>(nodeView.node);
+        EditorGUIUtility.PingObject(nodeView.customNode);
+        _inspectorView.InspectTargetObject<Editor>(nodeView.customNode);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeLibrary24.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
@@ -13,22 +14,22 @@ namespace CodeLibrary24.EditorUtilities
         public abstract PortCapacityType OutputPortCapacityType { get; }
 
 
-        public Node node;
+        public CustomNode customNode;
         public Port inputPort;
         public Port outputPort;
 
         public Action<NodeView> OnNodeViewSelected;
 
-        public NodeView(Node node)
+        public NodeView(CustomNode customNode)
         {
-            if (node == null)
+            if (customNode == null)
             {
                 return;
             }
 
-            this.node = node;
-            title = node.nodeName;
-            viewDataKey = node.guid;
+            this.customNode = customNode;
+            title = customNode.nodeName;
+            viewDataKey = customNode.guid;
             SetNodePositionInGraph();
 
             CreateInputPorts();
@@ -80,17 +81,17 @@ namespace CodeLibrary24.EditorUtilities
 
         private void SetNodePositionInGraph()
         {
-            style.left = node.graphPosition.x;
-            style.top = node.graphPosition.y;
+            style.left = customNode.graphPosition.x;
+            style.top = customNode.graphPosition.y;
         }
 
         public override void SetPosition(Rect newPos)
         {
             base.SetPosition(newPos);
-            Undo.RecordObject(node, "Node Position Record");
-            node.graphPosition.x = newPos.xMin;
-            node.graphPosition.y = newPos.yMin;
-            EditorUtility.SetDirty(node);
+            Undo.RecordObject(customNode, "Node Position Record");
+            customNode.graphPosition.x = newPos.xMin;
+            customNode.graphPosition.y = newPos.yMin;
+            EditorUtility.SetDirty(customNode);
         }
 
         public override void OnSelected()

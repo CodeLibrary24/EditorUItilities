@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeLibrary24.EditorUtilities
+namespace CodeLibrary24.Utilities
 {
-    public class NodeHub : ScriptableObject
+    public class CustomNodeHub : ScriptableObject
     {
-        public List<Node> nodes = new List<Node>();
+        public List<CustomNode> nodes = new List<CustomNode>();
 
-        public Node CreateNode(Type type)
+        public CustomNode CreateNode(Type type)
         {
-            Node node = ScriptableObject.CreateInstance(type) as Node;
-            if (node != null)
+            CustomNode customNode = ScriptableObject.CreateInstance(type) as CustomNode;
+            if (customNode != null)
             {
-                node.nodeName = type.Name;
-                node.name = type.Name;
-                node.guid = GUID.Generate().ToString();
+                customNode.nodeName = type.Name;
+                customNode.name = type.Name;
+                customNode.guid = GUID.Generate().ToString();
                 
                 Undo.RecordObject(this, "Add node to list Record");
-                nodes.Add(node);
+                nodes.Add(customNode);
 
-                AssetDatabase.AddObjectToAsset(node, this);
-                Undo.RegisterCreatedObjectUndo(node,"Create new node Record");
+                AssetDatabase.AddObjectToAsset(customNode, this);
+                Undo.RegisterCreatedObjectUndo(customNode,"Create new node Record");
                 AssetDatabase.SaveAssets();
-                return node;
+                return customNode;
             }
             else
             {
@@ -34,16 +34,16 @@ namespace CodeLibrary24.EditorUtilities
             return null;
         }
 
-        public void DeleteNode(Node node)
+        public void DeleteNode(CustomNode customNode)
         {
             Undo.RecordObject(this, "Delete node from list Record");
-            nodes.Remove(node);
-            Undo.DestroyObjectImmediate(node);
+            nodes.Remove(customNode);
+            Undo.DestroyObjectImmediate(customNode);
             // AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
         }
         
-        public void AddChild(Node parent, Node child)
+        public void AddChildNode(CustomNode parent, CustomNode child)
         {
             // TODO: Check if this type of node accepts children and only then add child
             Undo.RecordObject(parent,"Node Edge Addition Record");
@@ -51,14 +51,14 @@ namespace CodeLibrary24.EditorUtilities
             EditorUtility.SetDirty(parent);
         }
 
-        public void RemoveChild(Node parent, Node child)
+        public void RemoveChildNode(CustomNode parent, CustomNode child)
         {
             Undo.RecordObject(parent,"Node Edge Removal Record");
             parent.childrenNodes.Remove(child);
             EditorUtility.SetDirty(parent);
         }
 
-        public List<Node> GetChildren(Node parent)
+        public List<CustomNode> GetChildrenNodes(CustomNode parent)
         {
             return parent.childrenNodes;
         }

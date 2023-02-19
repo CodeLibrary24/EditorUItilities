@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CodeLibrary24.Utilities;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CodeLibrary24.EditorUtilities
@@ -17,7 +17,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public Action<NodeView> OnNodeViewSelected;
 
-        private NodeHub _nodeHub;
+        private CustomNodeHub _customNodeHub;
 
         public CustomGraphView()
         {
@@ -31,7 +31,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public void Refresh()
         {
-            PopulateView(_nodeHub);
+            PopulateView(_customNodeHub);
             AssetDatabase.SaveAssets();
         }
 
@@ -49,34 +49,34 @@ namespace CodeLibrary24.EditorUtilities
             this.AddManipulator(new RectangleSelector());
         }
 
-        public void PopulateView(NodeHub nodeHub)
+        public void PopulateView(CustomNodeHub customNodeHub)
         {
-            if (nodeHub == null)
+            if (customNodeHub == null)
             {
                 return;
             }
 
-            _nodeHub = nodeHub;
+            _customNodeHub = customNodeHub;
 
             ResetView();
-            CreateNodeViews(nodeHub);
-            CreateEdges(nodeHub);
+            CreateNodeViews(customNodeHub);
+            CreateEdges(customNodeHub);
         }
 
-        private void CreateNodeViews(NodeHub nodeHub)
+        private void CreateNodeViews(CustomNodeHub customNodeHub)
         {
-            foreach (Node node in nodeHub.nodes)
+            foreach (CustomNode node in customNodeHub.nodes)
             {
                 CreateNodeView(node);
             }
         }
 
-        private void CreateEdges(NodeHub nodeHub)
+        private void CreateEdges(CustomNodeHub customNodeHub)
         {
-            foreach (Node node in nodeHub.nodes)
+            foreach (CustomNode node in customNodeHub.nodes)
             {
-                List<Node> children = nodeHub.GetChildren(node);
-                foreach (Node childNode in children)
+                List<CustomNode> children = customNodeHub.GetChildrenNodes(node);
+                foreach (CustomNode childNode in children)
                 {
                     NodeView parentNodeView = FindNodeView(node);
                     NodeView childNodeView = FindNodeView(childNode);
@@ -87,9 +87,9 @@ namespace CodeLibrary24.EditorUtilities
             }
         }
 
-        private NodeView FindNodeView(Node node)
+        private NodeView FindNodeView(CustomNode customNode)
         {
-            return GetNodeByGuid(node.guid) as NodeView;
+            return GetNodeByGuid(customNode.guid) as NodeView;
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -127,7 +127,7 @@ namespace CodeLibrary24.EditorUtilities
             {
                 if (element is NodeView nodeView)
                 {
-                    _nodeHub.DeleteNode(nodeView.node);
+                    _customNodeHub.DeleteNode(nodeView.customNode);
                 }
 
                 if (element is Edge edge)
@@ -141,7 +141,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             NodeView parentView = edge.output.node as NodeView;
             NodeView childView = edge.input.node as NodeView;
-            _nodeHub.RemoveChild(parentView.node, childView.node);
+            _customNodeHub.RemoveChildNode(parentView.customNode, childView.customNode);
         }
 
         private void AddEgdesAsChildren(GraphViewChange graphviewchange)
@@ -152,12 +152,12 @@ namespace CodeLibrary24.EditorUtilities
                 {
                     NodeView parentView = edge.output.node as NodeView;
                     NodeView childView = edge.input.node as NodeView;
-                    _nodeHub.AddChild(parentView.node, childView.node);
+                    _customNodeHub.AddChildNode(parentView.customNode, childView.customNode);
                 });
             }
         }
 
-        private void CreateNodeView(Node node)
+        private void CreateNodeView(CustomNode customNode)
         {
             Type viewType = null;
 
@@ -168,7 +168,7 @@ namespace CodeLibrary24.EditorUtilities
                     if (type.IsSubclassOf(typeof(NodeView)) &&
                         type.GetCustomAttributes(typeof(NodeTypeAttribute), false)
                             .Cast<NodeTypeAttribute>()
-                            .Any(attr => attr.NodeType == node.GetType()))
+                            .Any(attr => attr.NodeType == customNode.GetType()))
                     {
                         viewType = type;
                         break;
@@ -183,7 +183,7 @@ namespace CodeLibrary24.EditorUtilities
 
             if (viewType != null)
             {
-                NodeView nodeView = (NodeView) Activator.CreateInstance(viewType, new object[] {node}); // TODO: Pass constructor arguments to Node View base class here
+                NodeView nodeView = (NodeView) Activator.CreateInstance(viewType, new object[] {customNode}); // TODO: Pass constructor arguments to Node View base class here
                 AddElement(nodeView);
                 nodeView.OnNodeViewSelected = OnNodeViewSelected;
                 OnNodeViewSelected?.Invoke(nodeView);
@@ -192,12 +192,12 @@ namespace CodeLibrary24.EditorUtilities
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            if (_nodeHub == null)
+            if (_customNodeHub == null)
             {
                 return;
             }
 
-            var types = TypeCache.GetTypesDerivedFrom<Node>();
+            var types = TypeCache.GetTypesDerivedFrom<CustomNode>();
             foreach (var type in types)
             {
                 evt.menu.AppendAction("Create Node/" + type.Name, (a) => CreateNode(type));
@@ -206,8 +206,8 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateNode(Type type)
         {
-            Node node = _nodeHub.CreateNode(type);
-            CreateNodeView(node);
+            CustomNode customNode = _customNodeHub.CreateNode(type);
+            CreateNodeView(customNode);
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace CodeLibrary24.EditorUtilities
+﻿using CodeLibrary24.Utilities;
+
+namespace CodeLibrary24.EditorUtilities
 {
-    [NodeType(typeof(DebugNode))]
+    [NodeType(typeof(DebugCustomNode))]
     public class DebugNodeView : NodeView
     {
         public override bool HasInputPort => true;
@@ -8,7 +10,7 @@
         public override PortCapacityType InputPortCapacityType => PortCapacityType.Single;
         public override PortCapacityType OutputPortCapacityType => PortCapacityType.Single;
 
-        public DebugNodeView(Node node) : base(node)
+        public DebugNodeView(CustomNode customNode) : base(customNode)
         {
         }
     }
