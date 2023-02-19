@@ -1,23 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeLibrary24.EditorUtilities
 {
     public abstract class Node : ScriptableObject
     {
-        [Header("Node Properties")]
         public string guid;
-
-        public abstract bool HasInputPort { get; }
-        public abstract bool HasOutputPort { get; }
-        public abstract PortCapacityType InputPortCapacityType { get; }
-        public abstract PortCapacityType OutputPortCapacityType { get; }
-
         public Vector2 graphPosition;
-
-        [Space]
-        [Header("Data")]
         public string nodeName;
 
         public string description;

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CodeLibrary24.EditorUtilities
@@ -26,7 +28,7 @@ namespace CodeLibrary24.EditorUtilities
             Undo.undoRedoPerformed += Refresh;
         }
 
-        
+
         public void Refresh()
         {
             PopulateView(_nodeHub);
@@ -157,10 +159,35 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateNodeView(Node node)
         {
-            NodeView nodeView = new NodeView(node);
-            AddElement(nodeView);
-            nodeView.OnNodeViewSelected = OnNodeViewSelected;
-            OnNodeViewSelected?.Invoke(nodeView);
+            Type viewType = null;
+
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (Type type in assembly.GetTypes())
+                {
+                    if (type.IsSubclassOf(typeof(NodeView)) &&
+                        type.GetCustomAttributes(typeof(NodeTypeAttribute), false)
+                            .Cast<NodeTypeAttribute>()
+                            .Any(attr => attr.NodeType == node.GetType()))
+                    {
+                        viewType = type;
+                        break;
+                    }
+                }
+
+                if (viewType != null)
+                {
+                    break;
+                }
+            }
+
+            if (viewType != null)
+            {
+                NodeView nodeView = (NodeView) Activator.CreateInstance(viewType, new object[] {node}); // TODO: Pass constructor arguments to Node View base class here
+                AddElement(nodeView);
+                nodeView.OnNodeViewSelected = OnNodeViewSelected;
+                OnNodeViewSelected?.Invoke(nodeView);
+            }
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
