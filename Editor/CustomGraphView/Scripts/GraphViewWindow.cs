@@ -5,7 +5,7 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GraphViewTestWindow : EditorWindow
+public class GraphViewWindow : EditorWindow
 {
     private static readonly Vector2 MinWindowSize = new Vector2(1400, 800);
     private static CustomGraphView _graphView;
@@ -19,10 +19,10 @@ public class GraphViewTestWindow : EditorWindow
     [MenuItem("CodeLibrary24/EditorUtilities/Tests/Graph View")]
     public static void OpenWindow()
     {
-        GraphViewTestWindow window = GetWindow<GraphViewTestWindow>();
+        GraphViewWindow window = GetWindow<GraphViewWindow>();
         window.minSize = MinWindowSize;
         window.titleContent = new GUIContent("GraphViewTestWindow");
-    }
+    }   
 
     [OnOpenAsset]
     public static bool OnOpenAsset(int instanceID, int line)
