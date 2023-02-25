@@ -1,13 +1,13 @@
 ﻿{
   "name": "com.codelibrary24.editorutilities",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Editor Utilities",
   "description": "A helper package for making editor tools",
   "documentationUrl": "https://ambargames.com/",
   "changelogUrl": "https://ambargames.com/",
   "licensesUrl": "https://ambargames.com/",
   "dependencies": {
-    "com.unity.editorcoroutines": "1.1.0"
+    "com.unity.editorcoroutines": "1.0.0"
   },
   "keywords": [
     "Utils",
