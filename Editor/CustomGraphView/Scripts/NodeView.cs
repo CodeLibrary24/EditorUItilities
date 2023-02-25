@@ -3,6 +3,7 @@ using CodeLibrary24.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.UIElements;
 
 namespace CodeLibrary24.EditorUtilities
 {
@@ -13,12 +14,15 @@ namespace CodeLibrary24.EditorUtilities
         public abstract PortCapacityType InputPortCapacityType { get; }
         public abstract PortCapacityType OutputPortCapacityType { get; }
 
+        public abstract Color TitleBackgroundColor { get; }
 
         public CustomNode customNode;
         public Port inputPort;
         public Port outputPort;
 
         public Action<NodeView> OnNodeViewSelected;
+
+        private VisualElement _customDataContainer;
 
         public NodeView(CustomNode customNode) : base(EditorPaths.NodeViewUxml)
         {
@@ -34,6 +38,9 @@ namespace CodeLibrary24.EditorUtilities
 
             CreateInputPorts();
             CreateOutputPorts();
+            SetTitleColor();
+
+            _customDataContainer = mainContainer.Q<VisualElement>("CustomDataContainer");
         }
 
         private void CreateInputPorts()
@@ -64,6 +71,19 @@ namespace CodeLibrary24.EditorUtilities
                 outputPort.portName = String.Empty;
                 outputContainer.Add(outputPort);
             }
+        }
+
+        private void SetTitleColor()
+        {
+            titleContainer.style.backgroundColor = TitleBackgroundColor;
+        }
+
+        public virtual void DrawCustomData()
+        {
+            Label descriptionLabel = new Label(customNode.description);
+            descriptionLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+            descriptionLabel.style.whiteSpace = WhiteSpace.Normal;
+            _customDataContainer.Add(descriptionLabel);
         }
 
         private Port.Capacity GetPortCapacity(PortCapacityType portCapacityType)
