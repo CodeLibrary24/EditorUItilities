@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/EditorUtilities/Editor/CustomGraphView/UIDocuments/NodeView.uss?fileID=7433441132597879392&amp;guid=144c6e023729a98478a436d6ecabf1ca&amp;type=3#NodeView" />
-    <ui:VisualElement name="node-border" style="background-color: rgb(71, 71, 71); flex-grow: 1; border-left-width: 0; border-right-width: 2px; border-top-width: 0; border-bottom-width: 2px; border-left-color: rgb(20, 20, 20); border-right-color: rgb(20, 20, 20); border-top-color: rgb(20, 20, 20); border-bottom-color: rgb(20, 20, 20); border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
+    <ui:VisualElement name="selection-border" style="flex-grow: 1;" />
+    <ui:VisualElement name="node-border" style="background-color: rgb(82, 82, 82); flex-grow: 1; border-left-width: 0; border-right-width: 2px; border-top-width: 0; border-bottom-width: 2px; border-left-color: rgb(20, 20, 20); border-right-color: rgb(20, 20, 20); border-top-color: rgb(20, 20, 20); border-bottom-color: rgb(20, 20, 20); border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
         <ui:VisualElement name="title" style="background-color: rgb(193, 98, 0); padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; align-items: center; border-top-left-radius: 6px; border-bottom-left-radius: 0; border-top-right-radius: 6px; border-bottom-right-radius: 0; text-shadow: 0 0 0 rgb(0, 0, 0); letter-spacing: 4px; word-spacing: 8px; -unity-text-outline-width: 0;">
             <ui:Label name="title-label" text="DebugCustomNode" class="unity-text-element unity-label" style="-unity-font-style: bold;" />
             <ui:VisualElement name="title-button-container">
@@ -13,12 +14,11 @@
             <ui:VisualElement name="divider" class="horizontal" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
             <ui:VisualElement name="top" style="align-items: stretch; justify-content: space-between; flex-grow: 1; flex-direction: column-reverse; flex-wrap: nowrap;">
                 <ui:VisualElement name="input" style="justify-content: center; background-color: rgba(51, 51, 51, 0);" />
-                <ui:VisualElement name="divider" class="vertical" style="justify-content: flex-start; -unity-text-outline-width: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; flex-grow: 1; background-color: rgb(40, 40, 40); margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
+                <ui:VisualElement name="divider" class="vertical" style="justify-content: flex-start; -unity-text-outline-width: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; flex-grow: 1; background-color: rgb(71, 71, 71); margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;">
                     <ui:VisualElement name="CustomDataContainer" style="flex-grow: 1; max-width: 200px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="output" style="justify-content: flex-start; background-color: rgba(86, 86, 86, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="selection-border" style="flex-grow: 1;" />
 </ui:UXML>

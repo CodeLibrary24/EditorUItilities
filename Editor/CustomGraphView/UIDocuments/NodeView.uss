@@ -3,10 +3,6 @@
     min-height: 100px;
 }
 
-#input {
-    justify-content: flex-end;
-}
-
 :hover > #selection-border {
     margin-left: 0;
     margin-right: 0;
@@ -32,10 +28,10 @@
 }
 
 :selected > #selection-border {
-    border-left-color: rgba(204, 204, 204, 255);
-    border-right-color: rgba(204, 204, 204, 255);
-    border-top-color: rgba(204, 204, 204, 255);
-    border-bottom-color: rgba(204, 204, 204, 255);
+    border-left-color: rgb(204, 204, 204);
+    border-right-color: rgb(204, 204, 204);
+    border-top-color: rgb(204, 204, 204);
+    border-bottom-color: rgb(204, 204, 204);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
