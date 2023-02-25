@@ -6,7 +6,7 @@ namespace CodeLibrary24.EditorUtilities
     public class DebugNodeView : NodeView
     {
         public override bool HasInputPort => true;
-        public override bool HasOutputPort => false;
+        public override bool HasOutputPort => true;
         public override PortCapacityType InputPortCapacityType => PortCapacityType.Single;
         public override PortCapacityType OutputPortCapacityType => PortCapacityType.Single;
 
@@ -14,4 +14,4 @@ namespace CodeLibrary24.EditorUtilities
         {
         }
     }
-}
+} // Lorem Ipsum paneer dimsums lumsum bum bum tum tum 

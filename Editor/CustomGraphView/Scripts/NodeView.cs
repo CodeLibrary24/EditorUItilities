@@ -20,7 +20,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public Action<NodeView> OnNodeViewSelected;
 
-        public NodeView(CustomNode customNode)
+        public NodeView(CustomNode customNode) : base(EditorPaths.NodeViewUxml)
         {
             if (customNode == null)
             {
