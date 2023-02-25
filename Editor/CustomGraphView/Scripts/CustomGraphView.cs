@@ -17,7 +17,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public Action<NodeView> OnNodeViewSelected;
 
-        private CustomNodeHub _customNodeHub;
+        private CustomNodeHubController _customNodeHubController;
 
         public CustomGraphView()
         {
@@ -31,7 +31,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public void Refresh()
         {
-            PopulateView(_customNodeHub);
+            DrawView(_customNodeHubController.GetNodeHub());
             AssetDatabase.SaveAssets();
         }
 
@@ -56,13 +56,18 @@ namespace CodeLibrary24.EditorUtilities
                 return;
             }
 
-            _customNodeHub = customNodeHub;
+            _customNodeHubController = new CustomNodeHubController(customNodeHub);
+            
+            DrawView(customNodeHub);
+        }
 
+        private void DrawView(CustomNodeHub customNodeHub)
+        {
             ResetView();
             CreateNodeViews(customNodeHub);
             CreateEdges(customNodeHub);
         }
-
+        
         private void CreateNodeViews(CustomNodeHub customNodeHub)
         {
             foreach (CustomNode node in customNodeHub.nodes)
@@ -75,7 +80,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             foreach (CustomNode node in customNodeHub.nodes)
             {
-                List<CustomNode> children = customNodeHub.GetChildrenNodes(node);
+                List<CustomNode> children = _customNodeHubController.GetChildrenNodes(node);
                 foreach (CustomNode childNode in children)
                 {
                     NodeView parentNodeView = FindNodeView(node);
@@ -127,7 +132,7 @@ namespace CodeLibrary24.EditorUtilities
             {
                 if (element is NodeView nodeView)
                 {
-                    _customNodeHub.DeleteNode(nodeView.customNode);
+                    _customNodeHubController.DeleteNode(nodeView.customNode);
                 }
 
                 if (element is Edge edge)
@@ -141,7 +146,7 @@ namespace CodeLibrary24.EditorUtilities
         {
             NodeView parentView = edge.output.node as NodeView;
             NodeView childView = edge.input.node as NodeView;
-            _customNodeHub.RemoveChildNode(parentView.customNode, childView.customNode);
+            _customNodeHubController.RemoveChildNode(parentView.customNode, childView.customNode);
         }
 
         private void AddEgdesAsChildren(GraphViewChange graphviewchange)
@@ -152,7 +157,7 @@ namespace CodeLibrary24.EditorUtilities
                 {
                     NodeView parentView = edge.output.node as NodeView;
                     NodeView childView = edge.input.node as NodeView;
-                    _customNodeHub.AddChildNode(parentView.customNode, childView.customNode);
+                    _customNodeHubController.AddChildNode(parentView.customNode, childView.customNode);
                 });
             }
         }
@@ -193,7 +198,7 @@ namespace CodeLibrary24.EditorUtilities
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            if (_customNodeHub == null)
+            if (_customNodeHubController == null)
             {
                 return;
             }
@@ -207,7 +212,7 @@ namespace CodeLibrary24.EditorUtilities
 
         private void CreateNode(Type type)
         {
-            CustomNode customNode = _customNodeHub.CreateNode(type);
+            CustomNode customNode = _customNodeHubController.CreateNode(type);
             CreateNodeView(customNode);
         }
     }
