@@ -78,12 +78,17 @@ namespace CodeLibrary24.EditorUtilities
             titleContainer.style.backgroundColor = TitleBackgroundColor;
         }
 
-        public virtual void DrawCustomData()
+        public void Draw()
+        {
+            DrawCustomData(_customDataContainer);
+        }
+
+        protected virtual void DrawCustomData(VisualElement customDataContainer)
         {
             Label descriptionLabel = new Label(customNode.description);
             descriptionLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
             descriptionLabel.style.whiteSpace = WhiteSpace.Normal;
-            _customDataContainer.Add(descriptionLabel);
+            customDataContainer.Add(descriptionLabel);
         }
 
         private Port.Capacity GetPortCapacity(PortCapacityType portCapacityType)

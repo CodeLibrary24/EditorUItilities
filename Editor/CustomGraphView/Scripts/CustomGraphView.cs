@@ -186,7 +186,7 @@ namespace CodeLibrary24.EditorUtilities
                 NodeView nodeView = (NodeView) Activator.CreateInstance(viewType, new object[] {customNode}); // TODO: Pass constructor arguments to Node View base class here
                 AddElement(nodeView);
                 nodeView.OnNodeViewSelected = OnNodeViewSelected;
-                nodeView.DrawCustomData();
+                nodeView.Draw();
                 OnNodeViewSelected?.Invoke(nodeView);
             }
         }
